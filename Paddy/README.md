@@ -13,3 +13,9 @@ Achieved 50% accuracy.
 Quick and Dirty Transfer learning by taking image and resizing it to 244x244 and running it through MobileNet
 
 Achieved 60% accuracy.
+
+
+### EfficientNetB0
+Transfer Learning using pure EfficientNetB0 with top removed and using original image size.
+
+Achieved 80% accuracy.
