@@ -10,5 +10,6 @@ Mainly used for testing purposes.
 Achieved 50% accuracy.
 
 ### MobileNet
-Quick and Dirty Transfer learning by taking image and resizing it to 244x244 and running it through MobileNExt
+Quick and Dirty Transfer learning by taking image and resizing it to 244x244 and running it through MobileNet
+
 Achieved 60% accuracy.
