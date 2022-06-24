@@ -11,6 +11,7 @@ from tensorflow.keras import mixed_precision
 import os
 import csv
 import tensorflow_hub as hub
+import dataprocessing
 
 tf.keras.mixed_precision.experimental.set_policy('mixed_float16')
 
@@ -21,20 +22,12 @@ for i, line in enumerate(open("Dataset/wnids.txt", "r")):
 
 
 ### PARSING TRAIN/VALDIATION FILES
-image_size = (480, 640)
-batch_size = 8
-train_dataset = keras.utils.image_dataset_from_directory("Dataset/train_images", image_size = image_size, batch_size = batch_size, seed = 1447, validation_split = 0.2, subset = "training")
-val_dataset= keras.utils.image_dataset_from_directory("Dataset/train_images", image_size = image_size, batch_size = batch_size, seed = 1447, validation_split = 0.2, subset = "validation") 
+train_dataset, val_dataset = dataprocessing.get_datasets()
 print("Finished Parsing")
 
 
 ### PARSING TEST IMAGES
-img_id = []
-directory = "Dataset"
-testPath = directory + "/test_images/"
-for fileName in os.listdir(testPath):
-    img_id.append(fileName)
-test_dataset = keras.utils.image_dataset_from_directory("Dataset/test_images", labels = None, image_size = image_size, batch_size = batch_size, shuffle = False)
+test_dataset, img_id = dataprocessing.get_test_dataset()
 print("Finished Converting")
                                           
 
