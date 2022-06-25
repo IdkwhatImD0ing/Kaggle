@@ -31,11 +31,7 @@ test_dataset, img_id = dataprocessing.get_test_dataset(batch_size)
 
 ### Optimized Neural Network
 model = keras.models.Sequential()
-# Data Augmentation
-#model.add(keras.layers.RandomFlip("horizontal_and_vertical"))
-#model.add(keras.layers.RandomRotation(0.2))
-#model.add(keras.layers.RandomContrast(0.2))
-#model.add(keras.layers.RandomZoom(0.2))
+
 
 # Model Layers
 model.add(keras.layers.Rescaling(scale = 1./255))

@@ -21,3 +21,7 @@ Transfer Learning using pure EfficientNetB0 with top removed and using original 
 Achieved 89% accuracy.
 
 ## With Data Augmentation
+
+### Basic Model
+Achieved 91% Accuracy
+
