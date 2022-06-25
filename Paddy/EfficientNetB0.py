@@ -13,8 +13,11 @@ import csv
 import tensorflow_hub as hub
 import dataprocessing
 
-tf.keras.mixed_precision.experimental.set_policy('mixed_float16')
+policy = mixed_precision.Policy('mixed_float16')
+mixed_precision.set_global_policy(policy)
 
+tf.keras.mixed_precision.experimental.set_policy('mixed_float16')
+batch_size = 128
 ### LABELS
 label_arr = []
 for i, line in enumerate(open("Dataset/wnids.txt", "r")):
@@ -22,19 +25,17 @@ for i, line in enumerate(open("Dataset/wnids.txt", "r")):
 
 
 ### PARSING TRAIN/VALDIATION FILES
-train_dataset, val_dataset = dataprocessing.get_datasets()
-print("Finished Parsing")
-
+train_dataset, val_dataset = dataprocessing.get_datasets(batch_size)
 
 ### PARSING TEST IMAGES
-test_dataset, img_id = dataprocessing.get_test_dataset()
-print("Finished Converting")
+test_dataset, img_id = dataprocessing.get_test_dataset(batch_size)
                                           
 
 effModel = keras.applications.EfficientNetB2(weights='imagenet',
+                                             pooling = 'avg',
                                              include_top=False,
-                                             input_shape=(480, 640, 3))
-
+                                             input_shape=(224, 224, 3))
+effModel.trainable = False
 ### Optimized Neural Network
 model = keras.models.Sequential()
 # Data Augmentation
@@ -44,8 +45,13 @@ model = keras.models.Sequential()
 #model.add(keras.layers.RandomZoom(0.2))
 
 # Model Layers
+model.add(keras.layers.Resizing(224, 224))
 model.add(effModel)
 model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(256, activation='swish'))
+model.add(keras.layers.Dropout(0.4))
+model.add(keras.layers.Dense(256, activation='swish'))
+model.add(keras.layers.Dropout(0.4))
 model.add(keras.layers.Dense(10, activation='softmax'))
 
 model.build(input_shape=(None, 480, 640, 3))
@@ -56,9 +62,10 @@ model.compile(optimizer=tf.keras.optimizers.Adam(),
 
 history = model.fit(train_dataset,
                     epochs=20,
-                    validation_data=val_dataset)
+                    validation_data=val_dataset,
+                    batch_size = batch_size)
 
-predictions = model.predict(test_dataset, batch_size=32)
+predictions = model.predict(test_dataset, batch_size=batch_size)
 predictions = np.argmax(predictions, axis=1)
 
 ### Matching Predictions with correct image id

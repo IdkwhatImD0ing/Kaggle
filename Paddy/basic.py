@@ -11,29 +11,22 @@ from tensorflow.keras import mixed_precision
 import os
 import csv
 import tensorflow_hub as hub
+import dataprocessing
+
+policy = mixed_precision.Policy('mixed_float16')
+mixed_precision.set_global_policy(policy)
 
 ### LABELS
 label_arr = []
 for i, line in enumerate(open("Dataset/wnids.txt", "r")):
     label_arr.append(line.rstrip("\n"))
 
-
+batch_size = 64
 ### PARSING TRAIN/VALDIATION FILES
-image_size = (480, 640)
-batch_size = 16
-train_dataset = keras.utils.image_dataset_from_directory("Dataset/train_images", image_size = image_size, batch_size = batch_size, seed = 1447, validation_split = 0.2, subset = "training")
-val_dataset= keras.utils.image_dataset_from_directory("Dataset/train_images", image_size = image_size, batch_size = batch_size, seed = 1447, validation_split = 0.2, subset = "validation") 
-print("Finished Parsing")
-
+train_dataset, val_dataset = dataprocessing.get_datasets(batch_size)
 
 ### PARSING TEST IMAGES
-img_id = []
-directory = "Dataset"
-testPath = directory + "/test_images/"
-for fileName in os.listdir(testPath):
-    img_id.append(fileName)
-test_dataset = keras.utils.image_dataset_from_directory("Dataset/test_images", labels = None, image_size = image_size, batch_size = batch_size, shuffle = False)
-print("Finished Converting")
+test_dataset, img_id = dataprocessing.get_test_dataset(batch_size)
                                           
 
 ### Optimized Neural Network
@@ -47,7 +40,11 @@ model = keras.models.Sequential()
 # Model Layers
 model.add(keras.layers.Rescaling(scale = 1./255))
 model.add(
-    keras.layers.Conv2D(filters=16, kernel_size=(3, 3), activation='relu'))
+    keras.layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu'))
+model.add(keras.layers.MaxPooling2D((2, 2)))
+model.add(
+    keras.layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu'))
+model.add(keras.layers.MaxPooling2D((2, 2)))
 model.add(
     keras.layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu'))
 model.add(keras.layers.MaxPooling2D((2, 2)))
@@ -55,6 +52,8 @@ model.add(
     keras.layers.Conv2D(filters=128, kernel_size=(3, 3), activation='relu'))
 model.add(keras.layers.MaxPooling2D((2, 2)))
 model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(1024, activation='swish'))
+model.add(keras.layers.Dense(128, activation='swish'))
 model.add(keras.layers.Dense(10, activation='softmax'))
 
 model.build(input_shape=(None, 480, 640, 3))
@@ -66,9 +65,9 @@ model.compile(optimizer=tf.keras.optimizers.Adam(),
 history = model.fit(train_dataset,
                     epochs=5,
                     validation_data=val_dataset,
-                    batch_size=16)
+                    batch_size=batch_size)
 
-predictions = model.predict(test_dataset, batch_size=32)
+predictions = model.predict(test_dataset, batch_size=batch_size)
 predictions = np.argmax(predictions, axis=1)
 
 ### Matching Predictions with correct image id

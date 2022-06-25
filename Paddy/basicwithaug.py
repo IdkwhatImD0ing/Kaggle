@@ -13,39 +13,42 @@ import csv
 import tensorflow_hub as hub
 import dataprocessing
 
+policy = mixed_precision.Policy('mixed_float16')
+mixed_precision.set_global_policy(policy)
 
 ### LABELS
 label_arr = []
 for i, line in enumerate(open("Dataset/wnids.txt", "r")):
     label_arr.append(line.rstrip("\n"))
 
-batch_size = 32
+
 ### PARSING TRAIN/VALDIATION FILES
-train_dataset, val_dataset = dataprocessing.get_datasets(batch_size)
+train_data, val_data = dataprocessing.generate_augmented_images()
+print("Finished Parsing")
+
 
 ### PARSING TEST IMAGES
-test_dataset, img_id = dataprocessing.get_test_dataset(batch_size)
+test_dataset, img_id = dataprocessing.get_test_dataset()
+print("Finished Converting")
                                           
-
-mobilenet_v2 = "https://tfhub.dev/google/tf2-preview/mobilenet_v2/classification/4"
-feature_extractor_model = mobilenet_v2
-
-feature_extractor_layer = hub.KerasLayer(feature_extractor_model,
-                                         input_shape=(224, 224, 3),
-                                         trainable=False)
 
 ### Optimized Neural Network
 model = keras.models.Sequential()
-# Data Augmentation
-#model.add(keras.layers.RandomFlip("horizontal_and_vertical"))
-#model.add(keras.layers.RandomRotation(0.2))
-#model.add(keras.layers.RandomContrast(0.2))
-#model.add(keras.layers.RandomZoom(0.2))
 
 # Model Layers
 model.add(keras.layers.Rescaling(scale = 1./255))
-model.add(keras.layers.Resizing(224, 224))
-model.add(feature_extractor_layer)
+model.add(
+    keras.layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu'))
+model.add(keras.layers.MaxPooling2D((2, 2)))
+model.add(
+    keras.layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu'))
+model.add(keras.layers.MaxPooling2D((2, 2)))
+model.add(
+    keras.layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu'))
+model.add(keras.layers.MaxPooling2D((2, 2)))
+model.add(
+    keras.layers.Conv2D(filters=128, kernel_size=(3, 3), activation='relu'))
+model.add(keras.layers.MaxPooling2D((2, 2)))
 model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(1024, activation='swish'))
 model.add(keras.layers.Dense(128, activation='swish'))
@@ -54,15 +57,17 @@ model.add(keras.layers.Dense(10, activation='softmax'))
 model.build(input_shape=(None, 480, 640, 3))
 model.summary()
 model.compile(optimizer=tf.keras.optimizers.Adam(),
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(),
+              loss=tf.keras.losses.CategoricalCrossentropy(),
               metrics=['accuracy'])
 
-history = model.fit(train_dataset,
-                    epochs=10,
-                    validation_data=val_dataset,
-                    batch_size=batch_size)
+num_epochs = 10
 
-predictions = model.predict(test_dataset, batch_size=batch_size)
+history = model.fit(train_data,
+                    epochs=num_epochs,
+                    validation_data=val_data,
+                    batch_size=32)
+
+predictions = model.predict(test_dataset, batch_size=32)
 predictions = np.argmax(predictions, axis=1)
 
 ### Matching Predictions with correct image id
