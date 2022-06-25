@@ -40,9 +40,9 @@ def get_test_dataset(batch_size):
     return test_dataset, img_id
 
 
-def generate_augmented_images(batch_size, img_size, normalize = False):
+def generate_augmented_images(batch_size, img_size, normalize = True):
     train_location = "Dataset/train_images/"
-    if(normalize == False):
+    if(normalize == True):
         aug_gens = ImageDataGenerator(
             rescale = 1.0/255,
             featurewise_center=False,

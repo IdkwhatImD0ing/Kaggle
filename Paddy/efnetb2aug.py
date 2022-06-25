@@ -16,18 +16,18 @@ import dataprocessing
 
 
 
-batch_size = 300
-img_size = 224
+batch_size = 64
+img_size = 256
 ### PARSING TRAIN/VALDIATION FILES
 train_data, val_data = dataprocessing.generate_augmented_images(batch_size, img_size, normalize = False)
 
 ### PARSING TEST IMAGES
 test_data = dataprocessing.generate_augmented_test(batch_size, img_size, normalize = False)
                                           
-effModel = keras.applications.EfficientNetB0(weights='imagenet',
+effModel = keras.applications.EfficientNetB4(weights='imagenet',
                                              pooling = 'avg',
                                              include_top=False,
-                                             input_shape=(224, 224, 3))
+                                             input_shape=(img_size, img_size, 3))
 effModel.trainable = False
 
 ### Optimized Neural Network
@@ -42,7 +42,7 @@ model.add(keras.layers.Dense(256, activation='swish'))
 model.add(keras.layers.Dropout(0.4))
 model.add(keras.layers.Dense(10, activation='softmax'))
 
-model.build(input_shape=(None, 224, 224, 3))
+model.build(input_shape=(None, img_size, img_size, 3))
 model.summary()
 model.compile(optimizer=tf.keras.optimizers.Adam(),
               loss=tf.keras.losses.CategoricalCrossentropy(),

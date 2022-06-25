@@ -19,10 +19,10 @@ import dataprocessing
 batch_size = 64
 img_size = 380
 ### PARSING TRAIN/VALDIATION FILES
-train_data, val_data = dataprocessing.generate_augmented_images(batch_size, img_size, normalize = True)
+train_data, val_data = dataprocessing.generate_augmented_images(batch_size, img_size, normalize = False)
 
 ### PARSING TEST IMAGES
-test_data = dataprocessing.generate_augmented_test(batch_size, img_size, normalize = True)
+test_data = dataprocessing.generate_augmented_test(batch_size, img_size, normalize = False)
                                           
 effModel = keras.applications.EfficientNetB4(weights='imagenet',
                                              pooling = 'avg',
