@@ -25,3 +25,11 @@ Achieved 89% accuracy.
 ### Basic Model
 Achieved 91% Accuracy
 
+### MobileNet
+Only achieved 87% accuracy, but still impressive for something that has 1/6 the parameters as the basic model.
+
+### EfficientNetB0
+Achieved 85% Accuracy.
+
+### EfficientNetB4
+Achieved 88% Accuracy

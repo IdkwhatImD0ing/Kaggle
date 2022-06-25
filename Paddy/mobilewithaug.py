@@ -1,6 +1,6 @@
 import tensorflow as tf
-import pandas as pd 
 import matplotlib.pyplot as plt
+import pandas as pd 
 from tensorflow.keras import regularizers
 from tensorflow.keras.optimizers import SGD
 from sklearn.model_selection import train_test_split
@@ -14,17 +14,10 @@ import csv
 import tensorflow_hub as hub
 import dataprocessing
 
-policy = mixed_precision.Policy('mixed_float16')
-mixed_precision.set_global_policy(policy)
-tf.config.list_physical_devices("GPU")
 
-### LABELS
-label_arr = []
-for i, line in enumerate(open("Dataset/wnids.txt", "r")):
-    label_arr.append(line.rstrip("\n"))
 
 batch_size = 300
-img_size = 256
+img_size = 224
 ### PARSING TRAIN/VALDIATION FILES
 train_data, val_data = dataprocessing.generate_augmented_images(batch_size, img_size)
 
@@ -32,40 +25,36 @@ train_data, val_data = dataprocessing.generate_augmented_images(batch_size, img_
 test_data = dataprocessing.generate_augmented_test(batch_size, img_size)
                                           
 
+mobilenet_v2 = "https://tfhub.dev/google/tf2-preview/mobilenet_v2/classification/4"
+feature_extractor_model = mobilenet_v2
+
+feature_extractor_layer = hub.KerasLayer(feature_extractor_model,
+                                         input_shape=(224, 224, 3),
+                                         trainable=False)
+
 ### Optimized Neural Network
 model = keras.models.Sequential()
 
 # Model Layers
-model.add(keras.layers.Input(shape = (256, 256, 3)))
-model.add(
-    keras.layers.Conv2D(filters=32, kernel_size=(3, 3), strides = (1,1), padding = "same", activation='relu'))
-model.add(keras.layers.MaxPooling2D((2, 2)))
-model.add(
-    keras.layers.Conv2D(filters=32, kernel_size=(3, 3), padding = "same", activation='relu'))
-model.add(keras.layers.MaxPooling2D((2, 2)))
-model.add(
-    keras.layers.Conv2D(filters=64, kernel_size=(3, 3), padding = "same", activation='relu'))
-model.add(keras.layers.MaxPooling2D((2, 2)))
-model.add(
-    keras.layers.Conv2D(filters=128, kernel_size=(3, 3), padding = "same", activation='relu'))
-model.add(keras.layers.MaxPooling2D((2, 2)))
+model.add(feature_extractor_layer)
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(1048, activation='swish'))
+model.add(keras.layers.Dense(1024, activation='swish'))
 model.add(keras.layers.Dense(128, activation='swish'))
 model.add(keras.layers.Dense(10, activation='softmax'))
 
-model.build(input_shape=(None, 256, 256, 3))
+model.build(input_shape=(None, 224, 224, 3))
 model.summary()
 model.compile(optimizer=tf.keras.optimizers.Adam(),
               loss=tf.keras.losses.CategoricalCrossentropy(),
               metrics=['accuracy'])
+
 num_epochs = 100
 lr_reduction = keras.callbacks.ReduceLROnPlateau(monitor='val_loss',patience=4, verbose=1,  factor=0.4, min_lr=0.0001)
 
 early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0.00001, patience=8, mode='auto', restore_best_weights=True)
 
 history = model.fit(train_data,
-                    workers = 8,
+                    workers = 16,
                     epochs=num_epochs,
                     validation_data=val_data,
                     batch_size=batch_size,

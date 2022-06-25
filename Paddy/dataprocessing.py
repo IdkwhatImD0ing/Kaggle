@@ -40,48 +40,74 @@ def get_test_dataset(batch_size):
     return test_dataset, img_id
 
 
-def generate_augmented_images(batch_size):
+def generate_augmented_images(batch_size, img_size, normalize = False):
     train_location = "Dataset/train_images/"
-    aug_gens = ImageDataGenerator(
-        rescale = 1.0/255,
-        featurewise_center=False,
-        samplewise_center=False,
-        featurewise_std_normalization=False,
-        samplewise_std_normalization=False,
-        zca_whitening=False,
-        validation_split=0.2,
-        rotation_range=10,
-        shear_range=0.25,
-        zoom_range=0.1,
-        width_shift_range=0.1,
-        height_shift_range=0.1,
-        horizontal_flip=True,
-        vertical_flip=True,
-    )
+    if(normalize == False):
+        aug_gens = ImageDataGenerator(
+            rescale = 1.0/255,
+            featurewise_center=False,
+            samplewise_center=False,
+            featurewise_std_normalization=False,
+            samplewise_std_normalization=False,
+            zca_whitening=False,
+            validation_split=0.1,
+            rotation_range=10,
+            shear_range=0.25,
+            zoom_range=0.1,
+            width_shift_range=0.1,
+            height_shift_range=0.1,
+            horizontal_flip=True,
+            vertical_flip=True,
+        )
+    else:
+        aug_gens = ImageDataGenerator(
+            featurewise_center=False,
+            samplewise_center=False,
+            featurewise_std_normalization=False,
+            samplewise_std_normalization=False,
+            zca_whitening=False,
+            validation_split=0.1,
+            rotation_range=10,
+            shear_range=0.25,
+            zoom_range=0.1,
+            width_shift_range=0.1,
+            height_shift_range=0.1,
+            horizontal_flip=True,
+            vertical_flip=True,
+        )
 
     train_data = aug_gens.flow_from_directory(train_location,
                                               subset="training",
                                               seed=1447,
-                                              target_size=(256,256),
+                                              target_size=(img_size,img_size),
                                               batch_size=batch_size,
                                               class_mode="categorical")
 
     val_data = aug_gens.flow_from_directory(train_location,
                                             subset="validation",
                                             seed=1447,
-                                            target_size=(256,256),
+                                            target_size=(img_size,img_size),
                                             batch_size=batch_size,
                                             class_mode="categorical")
 
     return train_data, val_data
 
-def generate_augmented_test(batch_size):
+def generate_augmented_test(batch_size, img_size, normalize = False):
     test_location = "Dataset/test_images"
-    test_data = ImageDataGenerator(rescale=1.0/255).flow_from_directory(    
-        directory=test_location,
-        target_size=(256, 256),
-        batch_size=batch_size,
-        classes=['.'],
-        shuffle=False,
-    )
+    if(normalize == False):
+        test_data = ImageDataGenerator(rescale=1.0/255).flow_from_directory(    
+            directory=test_location,
+            target_size=(img_size, img_size),
+            batch_size=batch_size,
+            classes=['.'],
+            shuffle=False,
+        )
+    else:
+        test_data = ImageDataGenerator().flow_from_directory(    
+            directory=test_location,
+            target_size=(img_size, img_size),
+            batch_size=batch_size,
+            classes=['.'],
+            shuffle=False,
+        )
     return test_data

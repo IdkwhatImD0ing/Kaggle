@@ -31,7 +31,7 @@ train_dataset, val_dataset = dataprocessing.get_datasets(batch_size)
 test_dataset, img_id = dataprocessing.get_test_dataset(batch_size)
                                           
 
-effModel = keras.applications.EfficientNetB2(weights='imagenet',
+effModel = keras.applications.EfficientNetB0(weights='imagenet',
                                              pooling = 'avg',
                                              include_top=False,
                                              input_shape=(224, 224, 3))
