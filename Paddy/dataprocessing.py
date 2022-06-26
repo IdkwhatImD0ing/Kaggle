@@ -111,3 +111,52 @@ def generate_augmented_test(batch_size, img_size, normalize = True):
             shuffle=False,
         )
     return test_data
+
+def tta_prediction(model, batch_size, img_size, normalize = True):
+    test_location = "Dataset/test_images"
+    if(normailize == True):
+        aug_gens = ImageDataGenerator(
+            rescale = 1.0/255,
+            featurewise_center=False,
+            samplewise_center=False,
+            featurewise_std_normalization=False,
+            samplewise_std_normalization=False,
+            zca_whitening=False,
+            rotation_range=10,
+            shear_range=0.25,
+            zoom_range=0.1,
+            width_shift_range=0.1,
+            height_shift_range=0.1,
+            horizontal_flip=True,
+            vertical_flip=True,
+        )
+    else:
+       aug_gens = ImageDataGenerator(
+            featurewise_center=False,
+            samplewise_center=False,
+            featurewise_std_normalization=False,
+            samplewise_std_normalization=False,
+            zca_whitening=False,
+            rotation_range=10,
+            shear_range=0.25,
+            zoom_range=0.1,
+            width_shift_range=0.1,
+            height_shift_range=0.1,
+            horizontal_flip=True,
+            vertical_flip=True,
+        )
+
+    tta_steps = 10
+    predictions = []
+    for i in tqdm(range(tta_steps)):
+        preds = model.predict(aug_gens.flow_from_directory(    
+            directory=test_location,
+            target_size=(img_size, img_size),
+            batch_size=batch_size,
+            classes=['.'],
+            shuffle=False,
+        ))
+        predictions.append(preds)
+
+    final_pred = np.mean(predictions, axis=0)
+    return final_pred

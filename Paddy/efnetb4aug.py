@@ -62,7 +62,6 @@ history = model.fit(train_data,
                     callbacks = [early_stop, lr_reduction])
 
 ##Matching Predictions with Correct Image ID
-predictions = model.evaluate(test_data, verbose = 1)
 y_predict_max = np.argmax(model.predict(test_data),axis=1)
 
 inverse_map = {v:k for k,v in train_data.class_indices.items()}

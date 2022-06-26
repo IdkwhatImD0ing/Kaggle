@@ -17,15 +17,15 @@ import dataprocessing
 policy = mixed_precision.Policy('mixed_float16')
 mixed_precision.set_global_policy(policy)
 
-batch_size = 128
-img_size = 224
+batch_size = 64
+img_size = 600
 ### PARSING TRAIN/VALDIATION FILES
 train_data, val_data = dataprocessing.generate_augmented_images(batch_size, img_size, normalize = False)
 
 ### PARSING TEST IMAGES
 test_data = dataprocessing.generate_augmented_test(batch_size, img_size, normalize = False)
                                           
-effModel = keras.applications.EfficientNetB0(weights='imagenet',
+effModel = keras.applications.EfficientNetB7(weights='imagenet',
                                              pooling = 'avg',
                                              include_top=False,
                                              input_shape=(img_size, img_size, 3))
@@ -38,6 +38,7 @@ model = keras.models.Sequential()
 model.add(effModel)
 model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(1024, activation='swish'))
+model.add(keras.layers.Dense(516, activation='swish'))
 model.add(keras.layers.Dense(256, activation='swish'))
 model.add(keras.layers.Dense(10, activation='softmax'))
 
