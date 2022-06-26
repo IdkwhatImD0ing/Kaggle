@@ -34,5 +34,8 @@ Achieved 91% Accuracy.
 ### EfficientNetB2
 Achieved 93% Accuracy
 
-### EFficientNetB4
+### EfficientNetB7
 Achieved 94.7% Accuracy
+
+### EfficientNetB7
+Achieved 96.1% Accuracy
