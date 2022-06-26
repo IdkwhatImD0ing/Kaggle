@@ -14,7 +14,8 @@ import csv
 import tensorflow_hub as hub
 import dataprocessing
 
-
+policy = mixed_precision.Policy('mixed_float16')
+mixed_precision.set_global_policy(policy)
 
 batch_size = 64
 img_size = 256
@@ -24,7 +25,7 @@ train_data, val_data = dataprocessing.generate_augmented_images(batch_size, img_
 ### PARSING TEST IMAGES
 test_data = dataprocessing.generate_augmented_test(batch_size, img_size, normalize = False)
                                           
-effModel = keras.applications.EfficientNetB4(weights='imagenet',
+effModel = keras.applications.EfficientNetB2(weights='imagenet',
                                              pooling = 'avg',
                                              include_top=False,
                                              input_shape=(img_size, img_size, 3))
@@ -36,10 +37,8 @@ model = keras.models.Sequential()
 # Model Layers
 model.add(effModel)
 model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(1024, activation='swish'))
 model.add(keras.layers.Dense(256, activation='swish'))
-model.add(keras.layers.Dropout(0.4))
-model.add(keras.layers.Dense(256, activation='swish'))
-model.add(keras.layers.Dropout(0.4))
 model.add(keras.layers.Dense(10, activation='softmax'))
 
 model.build(input_shape=(None, img_size, img_size, 3))

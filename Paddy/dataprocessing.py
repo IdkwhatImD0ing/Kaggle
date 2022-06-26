@@ -92,9 +92,9 @@ def generate_augmented_images(batch_size, img_size, normalize = True):
 
     return train_data, val_data
 
-def generate_augmented_test(batch_size, img_size, normalize = False):
+def generate_augmented_test(batch_size, img_size, normalize = True):
     test_location = "Dataset/test_images"
-    if(normalize == False):
+    if(normalize == True):
         test_data = ImageDataGenerator(rescale=1.0/255).flow_from_directory(    
             directory=test_location,
             target_size=(img_size, img_size),

@@ -29,7 +29,7 @@ Achieved 91% Accuracy
 Only achieved 87% accuracy, but still impressive for something that has 1/6 the parameters as the basic model.
 
 ### EfficientNetB0
-Achieved 85% Accuracy.
+Achieved 91% Accuracy.
 
-### EfficientNetB4
-Achieved 88% Accuracy
+### EfficientNetB2
+Achieved 93% Accuracy

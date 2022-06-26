@@ -14,9 +14,10 @@ import csv
 import tensorflow_hub as hub
 import dataprocessing
 
+policy = mixed_precision.Policy('mixed_float16')
+mixed_precision.set_global_policy(policy)
 
-
-batch_size = 300
+batch_size = 128
 img_size = 224
 ### PARSING TRAIN/VALDIATION FILES
 train_data, val_data = dataprocessing.generate_augmented_images(batch_size, img_size, normalize = False)
@@ -27,7 +28,7 @@ test_data = dataprocessing.generate_augmented_test(batch_size, img_size, normali
 effModel = keras.applications.EfficientNetB0(weights='imagenet',
                                              pooling = 'avg',
                                              include_top=False,
-                                             input_shape=(224, 224, 3))
+                                             input_shape=(img_size, img_size, 3))
 effModel.trainable = False
 
 ### Optimized Neural Network
@@ -36,13 +37,11 @@ model = keras.models.Sequential()
 # Model Layers
 model.add(effModel)
 model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(1024, activation='swish'))
 model.add(keras.layers.Dense(256, activation='swish'))
-model.add(keras.layers.Dropout(0.4))
-model.add(keras.layers.Dense(256, activation='swish'))
-model.add(keras.layers.Dropout(0.4))
 model.add(keras.layers.Dense(10, activation='softmax'))
 
-model.build(input_shape=(None, 224, 224, 3))
+model.build(input_shape=(None, img_size, img_size, 3))
 model.summary()
 model.compile(optimizer=tf.keras.optimizers.Adam(),
               loss=tf.keras.losses.CategoricalCrossentropy(),
