@@ -3,7 +3,8 @@ import os
 from tensorflow.keras.layers.experimental.preprocessing import RandomFlip
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-
+from tqdm import tqdm
+import numpy as np
 image_size = (480, 640)
 
 
@@ -114,7 +115,7 @@ def generate_augmented_test(batch_size, img_size, normalize = True):
 
 def tta_prediction(model, batch_size, img_size, normalize = True):
     test_location = "Dataset/test_images"
-    if(normailize == True):
+    if(normalize == True):
         aug_gens = ImageDataGenerator(
             rescale = 1.0/255,
             featurewise_center=False,
@@ -155,7 +156,7 @@ def tta_prediction(model, batch_size, img_size, normalize = True):
             batch_size=batch_size,
             classes=['.'],
             shuffle=False,
-        ))
+        ), workers = 16)
         predictions.append(preds)
 
     final_pred = np.mean(predictions, axis=0)
