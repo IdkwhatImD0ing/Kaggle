@@ -41,7 +41,7 @@ Achieved 94.7% Accuracy
 Achieved 96.1% Accuracy
 
 
-## Using Time Test Augmentation
+## Using Test Time Augmentation
 
 ## Mobile Net
 Achieved staggering 96.3% Accuracy, same as EfficientNetB7 but in around 1/20 the time.
