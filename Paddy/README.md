@@ -49,5 +49,8 @@ Achieved staggering 96.3% Accuracy, same as EfficientNetB7 but in around 1/20 th
 ## EfficientNetB0
 Achieved 97.30% Accuracy
 
-## EFficientNetB7
+## EfficientNetB7
 Achieved 97.46% Accuracy
+
+## ConvNeXtTiny
+Achieved 97.00% Accuracy
