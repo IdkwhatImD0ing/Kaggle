@@ -47,7 +47,10 @@ Achieved 96.1% Accuracy
 Achieved staggering 96.3% Accuracy, same as EfficientNetB7 but in around 1/20 the time.
 
 ## EfficientNetB0
-Achieved 97.30% Accuracy
+Achieved 97.30% Accuracy. Unfreezing entire transferred model from beginning resulted in 98.12% Accuracy.
+
+## EfficientNetB4
+Achieved 97.2% Accuracy. Unfreezing entire tranferred model from beginning resulted in 98.19% Accuracy.
 
 ## EfficientNetB7
 Achieved 97.46% Accuracy

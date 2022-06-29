@@ -17,7 +17,7 @@ import dataprocessing
 policy = mixed_precision.Policy('mixed_float16')
 mixed_precision.set_global_policy(policy)
 
-batch_size = 128
+batch_size = 64
 img_size = 224
 ### PARSING TRAIN/VALDIATION FILES
 train_data, val_data = dataprocessing.generate_augmented_images(batch_size, img_size, normalize = False)
@@ -29,7 +29,6 @@ effModel = keras.applications.EfficientNetB0(weights='imagenet',
                                              pooling = 'avg',
                                              include_top=False,
                                              input_shape=(img_size, img_size, 3))
-effModel.trainable = False
 
 ### Optimized Neural Network
 model = keras.models.Sequential()

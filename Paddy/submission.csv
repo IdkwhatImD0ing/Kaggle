@@ -19,7 +19,7 @@ image_id,label
 200018.jpg,hispa
 200019.jpg,dead_heart
 200020.jpg,dead_heart
-200021.jpg,bacterial_panicle_blight
+200021.jpg,normal
 200022.jpg,tungro
 200023.jpg,bacterial_leaf_blight
 200024.jpg,dead_heart
@@ -83,7 +83,7 @@ image_id,label
 200082.jpg,dead_heart
 200083.jpg,bacterial_panicle_blight
 200084.jpg,dead_heart
-200085.jpg,normal
+200085.jpg,downy_mildew
 200086.jpg,bacterial_leaf_blight
 200087.jpg,dead_heart
 200088.jpg,normal
@@ -105,7 +105,7 @@ image_id,label
 200104.jpg,downy_mildew
 200105.jpg,normal
 200106.jpg,blast
-200107.jpg,blast
+200107.jpg,tungro
 200108.jpg,tungro
 200109.jpg,tungro
 200110.jpg,blast
@@ -150,7 +150,7 @@ image_id,label
 200149.jpg,dead_heart
 200150.jpg,dead_heart
 200151.jpg,hispa
-200152.jpg,blast
+200152.jpg,downy_mildew
 200153.jpg,downy_mildew
 200154.jpg,bacterial_leaf_streak
 200155.jpg,downy_mildew
@@ -190,7 +190,7 @@ image_id,label
 200189.jpg,dead_heart
 200190.jpg,blast
 200191.jpg,blast
-200192.jpg,hispa
+200192.jpg,normal
 200193.jpg,normal
 200194.jpg,brown_spot
 200195.jpg,hispa
@@ -291,7 +291,7 @@ image_id,label
 200290.jpg,normal
 200291.jpg,brown_spot
 200292.jpg,hispa
-200293.jpg,tungro
+200293.jpg,normal
 200294.jpg,hispa
 200295.jpg,tungro
 200296.jpg,normal
@@ -329,12 +329,12 @@ image_id,label
 200328.jpg,hispa
 200329.jpg,dead_heart
 200330.jpg,blast
-200331.jpg,dead_heart
+200331.jpg,normal
 200332.jpg,hispa
 200333.jpg,hispa
 200334.jpg,brown_spot
 200335.jpg,bacterial_panicle_blight
-200336.jpg,downy_mildew
+200336.jpg,bacterial_leaf_blight
 200337.jpg,normal
 200338.jpg,brown_spot
 200339.jpg,dead_heart
@@ -347,7 +347,7 @@ image_id,label
 200346.jpg,brown_spot
 200347.jpg,brown_spot
 200348.jpg,hispa
-200349.jpg,hispa
+200349.jpg,tungro
 200350.jpg,blast
 200351.jpg,blast
 200352.jpg,blast
@@ -380,7 +380,7 @@ image_id,label
 200379.jpg,blast
 200380.jpg,normal
 200381.jpg,normal
-200382.jpg,hispa
+200382.jpg,normal
 200383.jpg,normal
 200384.jpg,bacterial_leaf_blight
 200385.jpg,hispa
@@ -419,9 +419,9 @@ image_id,label
 200418.jpg,hispa
 200419.jpg,hispa
 200420.jpg,tungro
-200421.jpg,hispa
+200421.jpg,brown_spot
 200422.jpg,hispa
-200423.jpg,normal
+200423.jpg,bacterial_panicle_blight
 200424.jpg,tungro
 200425.jpg,normal
 200426.jpg,bacterial_panicle_blight
@@ -429,7 +429,7 @@ image_id,label
 200428.jpg,downy_mildew
 200429.jpg,blast
 200430.jpg,hispa
-200431.jpg,blast
+200431.jpg,downy_mildew
 200432.jpg,bacterial_panicle_blight
 200433.jpg,hispa
 200434.jpg,bacterial_leaf_blight
@@ -444,7 +444,7 @@ image_id,label
 200443.jpg,bacterial_panicle_blight
 200444.jpg,downy_mildew
 200445.jpg,dead_heart
-200446.jpg,blast
+200446.jpg,downy_mildew
 200447.jpg,normal
 200448.jpg,tungro
 200449.jpg,blast
@@ -476,7 +476,7 @@ image_id,label
 200475.jpg,brown_spot
 200476.jpg,dead_heart
 200477.jpg,blast
-200478.jpg,blast
+200478.jpg,downy_mildew
 200479.jpg,normal
 200480.jpg,dead_heart
 200481.jpg,normal
@@ -496,7 +496,7 @@ image_id,label
 200495.jpg,tungro
 200496.jpg,bacterial_leaf_blight
 200497.jpg,normal
-200498.jpg,bacterial_panicle_blight
+200498.jpg,bacterial_leaf_blight
 200499.jpg,dead_heart
 200500.jpg,normal
 200501.jpg,normal
@@ -505,7 +505,7 @@ image_id,label
 200504.jpg,brown_spot
 200505.jpg,hispa
 200506.jpg,bacterial_panicle_blight
-200507.jpg,downy_mildew
+200507.jpg,blast
 200508.jpg,dead_heart
 200509.jpg,tungro
 200510.jpg,tungro
@@ -514,10 +514,10 @@ image_id,label
 200513.jpg,normal
 200514.jpg,blast
 200515.jpg,dead_heart
-200516.jpg,brown_spot
+200516.jpg,normal
 200517.jpg,normal
 200518.jpg,hispa
-200519.jpg,brown_spot
+200519.jpg,tungro
 200520.jpg,downy_mildew
 200521.jpg,blast
 200522.jpg,dead_heart
@@ -552,7 +552,7 @@ image_id,label
 200551.jpg,hispa
 200552.jpg,blast
 200553.jpg,bacterial_leaf_streak
-200554.jpg,tungro
+200554.jpg,blast
 200555.jpg,hispa
 200556.jpg,bacterial_panicle_blight
 200557.jpg,hispa
@@ -564,7 +564,7 @@ image_id,label
 200563.jpg,hispa
 200564.jpg,hispa
 200565.jpg,tungro
-200566.jpg,blast
+200566.jpg,downy_mildew
 200567.jpg,hispa
 200568.jpg,bacterial_panicle_blight
 200569.jpg,tungro
@@ -583,10 +583,10 @@ image_id,label
 200582.jpg,normal
 200583.jpg,brown_spot
 200584.jpg,blast
-200585.jpg,normal
+200585.jpg,blast
 200586.jpg,dead_heart
 200587.jpg,bacterial_panicle_blight
-200588.jpg,tungro
+200588.jpg,blast
 200589.jpg,normal
 200590.jpg,bacterial_leaf_blight
 200591.jpg,blast
@@ -610,7 +610,7 @@ image_id,label
 200609.jpg,normal
 200610.jpg,blast
 200611.jpg,brown_spot
-200612.jpg,brown_spot
+200612.jpg,tungro
 200613.jpg,tungro
 200614.jpg,downy_mildew
 200615.jpg,bacterial_leaf_blight
@@ -659,7 +659,7 @@ image_id,label
 200658.jpg,dead_heart
 200659.jpg,hispa
 200660.jpg,dead_heart
-200661.jpg,bacterial_leaf_streak
+200661.jpg,blast
 200662.jpg,downy_mildew
 200663.jpg,downy_mildew
 200664.jpg,brown_spot
@@ -671,7 +671,7 @@ image_id,label
 200670.jpg,hispa
 200671.jpg,bacterial_leaf_streak
 200672.jpg,bacterial_panicle_blight
-200673.jpg,normal
+200673.jpg,hispa
 200674.jpg,normal
 200675.jpg,hispa
 200676.jpg,dead_heart
@@ -694,7 +694,7 @@ image_id,label
 200693.jpg,blast
 200694.jpg,brown_spot
 200695.jpg,blast
-200696.jpg,normal
+200696.jpg,tungro
 200697.jpg,bacterial_leaf_blight
 200698.jpg,normal
 200699.jpg,dead_heart
@@ -710,7 +710,7 @@ image_id,label
 200709.jpg,dead_heart
 200710.jpg,hispa
 200711.jpg,normal
-200712.jpg,normal
+200712.jpg,hispa
 200713.jpg,hispa
 200714.jpg,downy_mildew
 200715.jpg,tungro
@@ -732,7 +732,7 @@ image_id,label
 200731.jpg,tungro
 200732.jpg,normal
 200733.jpg,blast
-200734.jpg,hispa
+200734.jpg,normal
 200735.jpg,tungro
 200736.jpg,blast
 200737.jpg,hispa
@@ -774,7 +774,7 @@ image_id,label
 200773.jpg,bacterial_leaf_streak
 200774.jpg,normal
 200775.jpg,hispa
-200776.jpg,bacterial_panicle_blight
+200776.jpg,dead_heart
 200777.jpg,blast
 200778.jpg,normal
 200779.jpg,normal
@@ -796,7 +796,7 @@ image_id,label
 200795.jpg,normal
 200796.jpg,normal
 200797.jpg,normal
-200798.jpg,blast
+200798.jpg,downy_mildew
 200799.jpg,dead_heart
 200800.jpg,bacterial_leaf_blight
 200801.jpg,hispa
@@ -808,10 +808,10 @@ image_id,label
 200807.jpg,blast
 200808.jpg,dead_heart
 200809.jpg,downy_mildew
-200810.jpg,dead_heart
+200810.jpg,blast
 200811.jpg,bacterial_panicle_blight
 200812.jpg,normal
-200813.jpg,hispa
+200813.jpg,normal
 200814.jpg,normal
 200815.jpg,dead_heart
 200816.jpg,blast
@@ -886,7 +886,7 @@ image_id,label
 200885.jpg,hispa
 200886.jpg,dead_heart
 200887.jpg,dead_heart
-200888.jpg,brown_spot
+200888.jpg,tungro
 200889.jpg,downy_mildew
 200890.jpg,blast
 200891.jpg,hispa
@@ -933,7 +933,7 @@ image_id,label
 200932.jpg,dead_heart
 200933.jpg,dead_heart
 200934.jpg,blast
-200935.jpg,brown_spot
+200935.jpg,blast
 200936.jpg,blast
 200937.jpg,normal
 200938.jpg,blast
@@ -945,7 +945,7 @@ image_id,label
 200944.jpg,dead_heart
 200945.jpg,dead_heart
 200946.jpg,downy_mildew
-200947.jpg,bacterial_leaf_streak
+200947.jpg,blast
 200948.jpg,blast
 200949.jpg,brown_spot
 200950.jpg,blast
@@ -985,7 +985,7 @@ image_id,label
 200984.jpg,downy_mildew
 200985.jpg,hispa
 200986.jpg,brown_spot
-200987.jpg,tungro
+200987.jpg,brown_spot
 200988.jpg,brown_spot
 200989.jpg,hispa
 200990.jpg,blast
@@ -994,7 +994,7 @@ image_id,label
 200993.jpg,tungro
 200994.jpg,hispa
 200995.jpg,brown_spot
-200996.jpg,normal
+200996.jpg,hispa
 200997.jpg,dead_heart
 200998.jpg,hispa
 200999.jpg,hispa
@@ -1022,7 +1022,7 @@ image_id,label
 201021.jpg,hispa
 201022.jpg,dead_heart
 201023.jpg,tungro
-201024.jpg,brown_spot
+201024.jpg,blast
 201025.jpg,blast
 201026.jpg,downy_mildew
 201027.jpg,normal
@@ -1069,7 +1069,7 @@ image_id,label
 201068.jpg,tungro
 201069.jpg,normal
 201070.jpg,hispa
-201071.jpg,normal
+201071.jpg,bacterial_panicle_blight
 201072.jpg,downy_mildew
 201073.jpg,blast
 201074.jpg,hispa
@@ -1079,7 +1079,7 @@ image_id,label
 201078.jpg,downy_mildew
 201079.jpg,bacterial_leaf_streak
 201080.jpg,blast
-201081.jpg,tungro
+201081.jpg,brown_spot
 201082.jpg,hispa
 201083.jpg,blast
 201084.jpg,hispa
@@ -1120,10 +1120,10 @@ image_id,label
 201119.jpg,blast
 201120.jpg,blast
 201121.jpg,bacterial_leaf_blight
-201122.jpg,blast
+201122.jpg,hispa
 201123.jpg,tungro
 201124.jpg,normal
-201125.jpg,blast
+201125.jpg,tungro
 201126.jpg,bacterial_panicle_blight
 201127.jpg,normal
 201128.jpg,tungro
@@ -1136,7 +1136,7 @@ image_id,label
 201135.jpg,blast
 201136.jpg,dead_heart
 201137.jpg,brown_spot
-201138.jpg,blast
+201138.jpg,brown_spot
 201139.jpg,brown_spot
 201140.jpg,normal
 201141.jpg,brown_spot
@@ -1150,7 +1150,7 @@ image_id,label
 201149.jpg,tungro
 201150.jpg,hispa
 201151.jpg,blast
-201152.jpg,brown_spot
+201152.jpg,hispa
 201153.jpg,brown_spot
 201154.jpg,dead_heart
 201155.jpg,dead_heart
@@ -1179,7 +1179,7 @@ image_id,label
 201178.jpg,blast
 201179.jpg,tungro
 201180.jpg,brown_spot
-201181.jpg,blast
+201181.jpg,hispa
 201182.jpg,tungro
 201183.jpg,blast
 201184.jpg,tungro
@@ -1211,7 +1211,7 @@ image_id,label
 201210.jpg,normal
 201211.jpg,bacterial_panicle_blight
 201212.jpg,normal
-201213.jpg,bacterial_leaf_streak
+201213.jpg,blast
 201214.jpg,downy_mildew
 201215.jpg,normal
 201216.jpg,tungro
@@ -1220,7 +1220,7 @@ image_id,label
 201219.jpg,dead_heart
 201220.jpg,dead_heart
 201221.jpg,brown_spot
-201222.jpg,hispa
+201222.jpg,downy_mildew
 201223.jpg,dead_heart
 201224.jpg,tungro
 201225.jpg,tungro
@@ -1243,9 +1243,9 @@ image_id,label
 201242.jpg,normal
 201243.jpg,normal
 201244.jpg,normal
-201245.jpg,blast
-201246.jpg,blast
-201247.jpg,blast
+201245.jpg,downy_mildew
+201246.jpg,bacterial_leaf_blight
+201247.jpg,normal
 201248.jpg,dead_heart
 201249.jpg,hispa
 201250.jpg,bacterial_leaf_blight
@@ -1266,7 +1266,7 @@ image_id,label
 201265.jpg,blast
 201266.jpg,normal
 201267.jpg,blast
-201268.jpg,tungro
+201268.jpg,downy_mildew
 201269.jpg,dead_heart
 201270.jpg,bacterial_leaf_blight
 201271.jpg,blast
@@ -1310,7 +1310,7 @@ image_id,label
 201309.jpg,downy_mildew
 201310.jpg,tungro
 201311.jpg,blast
-201312.jpg,brown_spot
+201312.jpg,normal
 201313.jpg,tungro
 201314.jpg,brown_spot
 201315.jpg,brown_spot
@@ -1353,7 +1353,7 @@ image_id,label
 201352.jpg,hispa
 201353.jpg,blast
 201354.jpg,normal
-201355.jpg,tungro
+201355.jpg,bacterial_leaf_blight
 201356.jpg,bacterial_panicle_blight
 201357.jpg,bacterial_panicle_blight
 201358.jpg,brown_spot
@@ -1400,7 +1400,7 @@ image_id,label
 201399.jpg,bacterial_panicle_blight
 201400.jpg,dead_heart
 201401.jpg,bacterial_panicle_blight
-201402.jpg,bacterial_leaf_blight
+201402.jpg,brown_spot
 201403.jpg,blast
 201404.jpg,hispa
 201405.jpg,bacterial_leaf_streak
@@ -1446,7 +1446,7 @@ image_id,label
 201445.jpg,blast
 201446.jpg,hispa
 201447.jpg,normal
-201448.jpg,normal
+201448.jpg,tungro
 201449.jpg,dead_heart
 201450.jpg,normal
 201451.jpg,dead_heart
@@ -1460,7 +1460,7 @@ image_id,label
 201459.jpg,blast
 201460.jpg,blast
 201461.jpg,dead_heart
-201462.jpg,hispa
+201462.jpg,downy_mildew
 201463.jpg,tungro
 201464.jpg,dead_heart
 201465.jpg,hispa
@@ -1512,7 +1512,7 @@ image_id,label
 201511.jpg,tungro
 201512.jpg,downy_mildew
 201513.jpg,brown_spot
-201514.jpg,blast
+201514.jpg,downy_mildew
 201515.jpg,brown_spot
 201516.jpg,blast
 201517.jpg,downy_mildew
@@ -1543,7 +1543,7 @@ image_id,label
 201542.jpg,brown_spot
 201543.jpg,normal
 201544.jpg,bacterial_panicle_blight
-201545.jpg,normal
+201545.jpg,hispa
 201546.jpg,brown_spot
 201547.jpg,hispa
 201548.jpg,tungro
@@ -1557,14 +1557,14 @@ image_id,label
 201556.jpg,tungro
 201557.jpg,dead_heart
 201558.jpg,normal
-201559.jpg,blast
+201559.jpg,tungro
 201560.jpg,blast
 201561.jpg,hispa
 201562.jpg,hispa
-201563.jpg,bacterial_panicle_blight
+201563.jpg,normal
 201564.jpg,brown_spot
 201565.jpg,hispa
-201566.jpg,blast
+201566.jpg,downy_mildew
 201567.jpg,dead_heart
 201568.jpg,hispa
 201569.jpg,hispa
@@ -1689,7 +1689,7 @@ image_id,label
 201688.jpg,bacterial_leaf_streak
 201689.jpg,hispa
 201690.jpg,brown_spot
-201691.jpg,normal
+201691.jpg,hispa
 201692.jpg,bacterial_leaf_blight
 201693.jpg,bacterial_panicle_blight
 201694.jpg,tungro
@@ -1771,7 +1771,7 @@ image_id,label
 201770.jpg,downy_mildew
 201771.jpg,hispa
 201772.jpg,tungro
-201773.jpg,hispa
+201773.jpg,normal
 201774.jpg,brown_spot
 201775.jpg,bacterial_leaf_streak
 201776.jpg,dead_heart
@@ -1793,7 +1793,7 @@ image_id,label
 201792.jpg,hispa
 201793.jpg,dead_heart
 201794.jpg,tungro
-201795.jpg,hispa
+201795.jpg,blast
 201796.jpg,bacterial_leaf_blight
 201797.jpg,dead_heart
 201798.jpg,normal
@@ -1855,7 +1855,7 @@ image_id,label
 201854.jpg,downy_mildew
 201855.jpg,normal
 201856.jpg,dead_heart
-201857.jpg,tungro
+201857.jpg,hispa
 201858.jpg,normal
 201859.jpg,normal
 201860.jpg,hispa
@@ -1894,7 +1894,7 @@ image_id,label
 201893.jpg,dead_heart
 201894.jpg,bacterial_panicle_blight
 201895.jpg,normal
-201896.jpg,brown_spot
+201896.jpg,bacterial_leaf_blight
 201897.jpg,normal
 201898.jpg,normal
 201899.jpg,hispa
@@ -1921,15 +1921,15 @@ image_id,label
 201920.jpg,normal
 201921.jpg,tungro
 201922.jpg,bacterial_leaf_streak
-201923.jpg,hispa
+201923.jpg,tungro
 201924.jpg,dead_heart
 201925.jpg,normal
 201926.jpg,blast
 201927.jpg,bacterial_leaf_streak
 201928.jpg,dead_heart
-201929.jpg,tungro
+201929.jpg,hispa
 201930.jpg,dead_heart
-201931.jpg,tungro
+201931.jpg,downy_mildew
 201932.jpg,brown_spot
 201933.jpg,brown_spot
 201934.jpg,normal
@@ -1947,7 +1947,7 @@ image_id,label
 201946.jpg,bacterial_leaf_blight
 201947.jpg,dead_heart
 201948.jpg,bacterial_leaf_streak
-201949.jpg,bacterial_leaf_streak
+201949.jpg,normal
 201950.jpg,bacterial_panicle_blight
 201951.jpg,hispa
 201952.jpg,normal
@@ -1967,7 +1967,7 @@ image_id,label
 201966.jpg,normal
 201967.jpg,bacterial_leaf_streak
 201968.jpg,dead_heart
-201969.jpg,tungro
+201969.jpg,dead_heart
 201970.jpg,blast
 201971.jpg,blast
 201972.jpg,downy_mildew
@@ -2004,7 +2004,7 @@ image_id,label
 202003.jpg,normal
 202004.jpg,blast
 202005.jpg,brown_spot
-202006.jpg,tungro
+202006.jpg,dead_heart
 202007.jpg,bacterial_panicle_blight
 202008.jpg,normal
 202009.jpg,hispa
@@ -2157,14 +2157,14 @@ image_id,label
 202156.jpg,blast
 202157.jpg,normal
 202158.jpg,hispa
-202159.jpg,tungro
+202159.jpg,dead_heart
 202160.jpg,normal
 202161.jpg,dead_heart
 202162.jpg,dead_heart
 202163.jpg,blast
 202164.jpg,downy_mildew
 202165.jpg,tungro
-202166.jpg,hispa
+202166.jpg,normal
 202167.jpg,normal
 202168.jpg,blast
 202169.jpg,tungro
@@ -2260,12 +2260,12 @@ image_id,label
 202259.jpg,dead_heart
 202260.jpg,bacterial_leaf_streak
 202261.jpg,tungro
-202262.jpg,blast
+202262.jpg,normal
 202263.jpg,dead_heart
 202264.jpg,blast
 202265.jpg,downy_mildew
 202266.jpg,hispa
-202267.jpg,dead_heart
+202267.jpg,blast
 202268.jpg,blast
 202269.jpg,normal
 202270.jpg,normal
@@ -2337,7 +2337,7 @@ image_id,label
 202336.jpg,hispa
 202337.jpg,normal
 202338.jpg,brown_spot
-202339.jpg,blast
+202339.jpg,downy_mildew
 202340.jpg,blast
 202341.jpg,bacterial_leaf_streak
 202342.jpg,dead_heart
@@ -2362,7 +2362,7 @@ image_id,label
 202361.jpg,blast
 202362.jpg,bacterial_leaf_streak
 202363.jpg,dead_heart
-202364.jpg,brown_spot
+202364.jpg,hispa
 202365.jpg,blast
 202366.jpg,dead_heart
 202367.jpg,dead_heart
@@ -2447,7 +2447,7 @@ image_id,label
 202446.jpg,hispa
 202447.jpg,hispa
 202448.jpg,tungro
-202449.jpg,brown_spot
+202449.jpg,bacterial_leaf_streak
 202450.jpg,tungro
 202451.jpg,dead_heart
 202452.jpg,blast
@@ -2513,7 +2513,7 @@ image_id,label
 202512.jpg,blast
 202513.jpg,blast
 202514.jpg,normal
-202515.jpg,blast
+202515.jpg,downy_mildew
 202516.jpg,blast
 202517.jpg,dead_heart
 202518.jpg,hispa
@@ -2536,7 +2536,7 @@ image_id,label
 202535.jpg,bacterial_leaf_blight
 202536.jpg,brown_spot
 202537.jpg,blast
-202538.jpg,bacterial_panicle_blight
+202538.jpg,normal
 202539.jpg,tungro
 202540.jpg,tungro
 202541.jpg,blast
@@ -2549,7 +2549,7 @@ image_id,label
 202548.jpg,dead_heart
 202549.jpg,dead_heart
 202550.jpg,blast
-202551.jpg,tungro
+202551.jpg,hispa
 202552.jpg,bacterial_leaf_blight
 202553.jpg,downy_mildew
 202554.jpg,bacterial_leaf_streak
@@ -2584,7 +2584,7 @@ image_id,label
 202583.jpg,normal
 202584.jpg,dead_heart
 202585.jpg,tungro
-202586.jpg,blast
+202586.jpg,tungro
 202587.jpg,blast
 202588.jpg,downy_mildew
 202589.jpg,downy_mildew
@@ -2635,7 +2635,7 @@ image_id,label
 202634.jpg,dead_heart
 202635.jpg,dead_heart
 202636.jpg,hispa
-202637.jpg,bacterial_panicle_blight
+202637.jpg,normal
 202638.jpg,dead_heart
 202639.jpg,brown_spot
 202640.jpg,bacterial_leaf_blight
@@ -2659,7 +2659,7 @@ image_id,label
 202658.jpg,bacterial_leaf_blight
 202659.jpg,normal
 202660.jpg,hispa
-202661.jpg,tungro
+202661.jpg,blast
 202662.jpg,normal
 202663.jpg,bacterial_leaf_blight
 202664.jpg,bacterial_leaf_streak
@@ -2667,7 +2667,7 @@ image_id,label
 202666.jpg,dead_heart
 202667.jpg,dead_heart
 202668.jpg,bacterial_leaf_streak
-202669.jpg,tungro
+202669.jpg,downy_mildew
 202670.jpg,dead_heart
 202671.jpg,hispa
 202672.jpg,normal
@@ -2772,7 +2772,7 @@ image_id,label
 202771.jpg,brown_spot
 202772.jpg,blast
 202773.jpg,normal
-202774.jpg,hispa
+202774.jpg,normal
 202775.jpg,blast
 202776.jpg,blast
 202777.jpg,brown_spot
@@ -2806,14 +2806,14 @@ image_id,label
 202805.jpg,bacterial_leaf_blight
 202806.jpg,normal
 202807.jpg,bacterial_leaf_blight
-202808.jpg,dead_heart
+202808.jpg,bacterial_panicle_blight
 202809.jpg,downy_mildew
 202810.jpg,hispa
 202811.jpg,blast
 202812.jpg,blast
 202813.jpg,normal
 202814.jpg,normal
-202815.jpg,hispa
+202815.jpg,normal
 202816.jpg,normal
 202817.jpg,bacterial_leaf_blight
 202818.jpg,dead_heart
@@ -2911,7 +2911,7 @@ image_id,label
 202910.jpg,bacterial_leaf_streak
 202911.jpg,blast
 202912.jpg,tungro
-202913.jpg,hispa
+202913.jpg,tungro
 202914.jpg,blast
 202915.jpg,dead_heart
 202916.jpg,brown_spot
@@ -2927,7 +2927,7 @@ image_id,label
 202926.jpg,dead_heart
 202927.jpg,dead_heart
 202928.jpg,normal
-202929.jpg,hispa
+202929.jpg,normal
 202930.jpg,dead_heart
 202931.jpg,downy_mildew
 202932.jpg,blast
@@ -2941,10 +2941,10 @@ image_id,label
 202940.jpg,dead_heart
 202941.jpg,brown_spot
 202942.jpg,hispa
-202943.jpg,normal
+202943.jpg,hispa
 202944.jpg,blast
 202945.jpg,normal
-202946.jpg,hispa
+202946.jpg,brown_spot
 202947.jpg,downy_mildew
 202948.jpg,blast
 202949.jpg,brown_spot
@@ -2993,7 +2993,7 @@ image_id,label
 202992.jpg,dead_heart
 202993.jpg,hispa
 202994.jpg,blast
-202995.jpg,tungro
+202995.jpg,brown_spot
 202996.jpg,downy_mildew
 202997.jpg,normal
 202998.jpg,dead_heart
@@ -3042,7 +3042,7 @@ image_id,label
 203041.jpg,tungro
 203042.jpg,normal
 203043.jpg,downy_mildew
-203044.jpg,blast
+203044.jpg,downy_mildew
 203045.jpg,blast
 203046.jpg,tungro
 203047.jpg,normal
@@ -3114,7 +3114,7 @@ image_id,label
 203113.jpg,blast
 203114.jpg,brown_spot
 203115.jpg,hispa
-203116.jpg,tungro
+203116.jpg,brown_spot
 203117.jpg,downy_mildew
 203118.jpg,blast
 203119.jpg,dead_heart
@@ -3161,7 +3161,7 @@ image_id,label
 203160.jpg,normal
 203161.jpg,blast
 203162.jpg,dead_heart
-203163.jpg,tungro
+203163.jpg,blast
 203164.jpg,dead_heart
 203165.jpg,blast
 203166.jpg,hispa
@@ -3268,7 +3268,7 @@ image_id,label
 203267.jpg,bacterial_panicle_blight
 203268.jpg,downy_mildew
 203269.jpg,normal
-203270.jpg,brown_spot
+203270.jpg,dead_heart
 203271.jpg,hispa
 203272.jpg,normal
 203273.jpg,hispa
@@ -3303,7 +3303,7 @@ image_id,label
 203302.jpg,bacterial_panicle_blight
 203303.jpg,dead_heart
 203304.jpg,blast
-203305.jpg,hispa
+203305.jpg,normal
 203306.jpg,dead_heart
 203307.jpg,blast
 203308.jpg,dead_heart
@@ -3342,7 +3342,7 @@ image_id,label
 203341.jpg,dead_heart
 203342.jpg,blast
 203343.jpg,bacterial_panicle_blight
-203344.jpg,blast
+203344.jpg,downy_mildew
 203345.jpg,hispa
 203346.jpg,hispa
 203347.jpg,normal
@@ -3372,7 +3372,7 @@ image_id,label
 203371.jpg,downy_mildew
 203372.jpg,hispa
 203373.jpg,blast
-203374.jpg,blast
+203374.jpg,normal
 203375.jpg,tungro
 203376.jpg,bacterial_leaf_streak
 203377.jpg,brown_spot
@@ -3411,7 +3411,7 @@ image_id,label
 203410.jpg,hispa
 203411.jpg,blast
 203412.jpg,hispa
-203413.jpg,normal
+203413.jpg,hispa
 203414.jpg,blast
 203415.jpg,hispa
 203416.jpg,brown_spot
@@ -3428,7 +3428,7 @@ image_id,label
 203427.jpg,brown_spot
 203428.jpg,downy_mildew
 203429.jpg,normal
-203430.jpg,blast
+203430.jpg,downy_mildew
 203431.jpg,brown_spot
 203432.jpg,brown_spot
 203433.jpg,dead_heart
@@ -3447,7 +3447,7 @@ image_id,label
 203446.jpg,tungro
 203447.jpg,normal
 203448.jpg,brown_spot
-203449.jpg,normal
+203449.jpg,hispa
 203450.jpg,normal
 203451.jpg,brown_spot
 203452.jpg,dead_heart
