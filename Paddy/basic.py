@@ -27,14 +27,12 @@ train_dataset, val_dataset = dataprocessing.get_datasets(batch_size)
 
 ### PARSING TEST IMAGES
 test_dataset, img_id = dataprocessing.get_test_dataset(batch_size)
-                                          
 
 ### Optimized Neural Network
 model = keras.models.Sequential()
 
-
 # Model Layers
-model.add(keras.layers.Rescaling(scale = 1./255))
+model.add(keras.layers.Rescaling(scale=1. / 255))
 model.add(
     keras.layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu'))
 model.add(keras.layers.MaxPooling2D((2, 2)))
@@ -70,7 +68,6 @@ predictions = np.argmax(predictions, axis=1)
 y_test = []
 for i in range(len(predictions)):
     y_test.append(label_arr[predictions[i]])
-
 
 combined = [[i, j] for i, j in zip(img_id, y_test)]
 with open("predictions.csv", "w", newline="") as f:
