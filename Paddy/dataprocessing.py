@@ -5,6 +5,7 @@ from tensorflow.keras.preprocessing import image_dataset_from_directory
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tqdm import tqdm
 import numpy as np
+
 image_size = (480, 640)
 
 
@@ -41,11 +42,11 @@ def get_test_dataset(batch_size):
     return test_dataset, img_id
 
 
-def generate_augmented_images(batch_size, img_size, normalize = True):
+def generate_augmented_images(batch_size, img_size, normalize=True):
     train_location = "Dataset/train_images/"
-    if(normalize == True):
+    if (normalize == True):
         aug_gens = ImageDataGenerator(
-            rescale = 1.0/255,
+            rescale=1.0 / 255,
             featurewise_center=False,
             samplewise_center=False,
             featurewise_std_normalization=False,
@@ -80,23 +81,24 @@ def generate_augmented_images(batch_size, img_size, normalize = True):
     train_data = aug_gens.flow_from_directory(train_location,
                                               subset="training",
                                               seed=1447,
-                                              target_size=(img_size,img_size),
+                                              target_size=(img_size, img_size),
                                               batch_size=batch_size,
                                               class_mode="categorical")
 
     val_data = aug_gens.flow_from_directory(train_location,
                                             subset="validation",
                                             seed=1447,
-                                            target_size=(img_size,img_size),
+                                            target_size=(img_size, img_size),
                                             batch_size=batch_size,
                                             class_mode="categorical")
 
     return train_data, val_data
 
-def generate_augmented_test(batch_size, img_size, normalize = True):
+
+def generate_augmented_test(batch_size, img_size, normalize=True):
     test_location = "Dataset/test_images"
-    if(normalize == True):
-        test_data = ImageDataGenerator(rescale=1.0/255).flow_from_directory(    
+    if (normalize == True):
+        test_data = ImageDataGenerator(rescale=1.0 / 255).flow_from_directory(
             directory=test_location,
             target_size=(img_size, img_size),
             batch_size=batch_size,
@@ -104,7 +106,7 @@ def generate_augmented_test(batch_size, img_size, normalize = True):
             shuffle=False,
         )
     else:
-        test_data = ImageDataGenerator().flow_from_directory(    
+        test_data = ImageDataGenerator().flow_from_directory(
             directory=test_location,
             target_size=(img_size, img_size),
             batch_size=batch_size,
@@ -113,11 +115,12 @@ def generate_augmented_test(batch_size, img_size, normalize = True):
         )
     return test_data
 
-def tta_prediction(model, batch_size, img_size, normalize = True):
+
+def tta_prediction(model, batch_size, img_size, normalize=True):
     test_location = "Dataset/test_images"
-    if(normalize == True):
+    if (normalize == True):
         aug_gens = ImageDataGenerator(
-            rescale = 1.0/255,
+            rescale=1.0 / 255,
             featurewise_center=False,
             samplewise_center=False,
             featurewise_std_normalization=False,
@@ -132,7 +135,7 @@ def tta_prediction(model, batch_size, img_size, normalize = True):
             vertical_flip=True,
         )
     else:
-       aug_gens = ImageDataGenerator(
+        aug_gens = ImageDataGenerator(
             featurewise_center=False,
             samplewise_center=False,
             featurewise_std_normalization=False,
@@ -150,13 +153,14 @@ def tta_prediction(model, batch_size, img_size, normalize = True):
     tta_steps = 10
     predictions = []
     for i in tqdm(range(tta_steps)):
-        preds = model.predict(aug_gens.flow_from_directory(    
+        preds = model.predict(aug_gens.flow_from_directory(
             directory=test_location,
             target_size=(img_size, img_size),
             batch_size=batch_size,
             classes=['.'],
             shuffle=False,
-        ), workers = 16)
+        ),
+                              workers=16)
         predictions.append(preds)
 
     final_pred = np.mean(predictions, axis=0)
