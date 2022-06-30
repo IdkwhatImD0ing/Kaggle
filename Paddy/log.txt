@@ -1,0 +1,4 @@
+MobileNet
+Base: 0.34
+2 1024 Only: 0.37
+Base + Dropouts:

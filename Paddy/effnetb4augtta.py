@@ -37,7 +37,7 @@ model = keras.models.Sequential()
 model.add(effModel)
 model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(1024, activation='swish'))
-model.add(keras.layers.Dense(516, activation='swish'))
+model.add(keras.layers.Dense(512, activation='swish'))
 model.add(keras.layers.Dense(256, activation='swish'))
 model.add(keras.layers.Dense(10, activation='softmax'))
 
