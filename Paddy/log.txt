@@ -1,3 +1,4 @@
 MobileNet
-Base: 0.3556
-Base + Dropouts:
+Base: 0.3556 90.73%
+Base + Dropouts: 0.31 90.54
+Base + Normalization + Droupouts: 0.33 89.48%
