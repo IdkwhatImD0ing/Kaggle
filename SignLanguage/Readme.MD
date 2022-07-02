@@ -37,6 +37,6 @@ Transfer learning model using Image Augmentation
 
 Long training time
 
-Validation Accuracy:
+Validation Accuracy: 99.83%
 
-Test Accuracy using TTA:
+Test Accuracy using TTA: 100%
