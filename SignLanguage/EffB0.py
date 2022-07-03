@@ -82,6 +82,7 @@ def run():
                         max_queue_size=30)
 
     model.evaluate(val_data)
+    model.save("ASLModel", include_optimizer=False)
 
     ##Matching Predictions with Correct Image ID
     pred = dataprocessing.tta_prediction(model,
