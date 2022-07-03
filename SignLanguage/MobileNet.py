@@ -22,7 +22,7 @@ def run():
     for i, line in enumerate(open("Dataset/wnids.txt", "r")):
         label_dict[line.rstrip("\n")] = int(i)
 
-    batch_size = 300
+    batch_size = 64
     img_size = 224
     num_classes = 27
     ### PARSING TRAIN/VALDIATION FILES
@@ -38,7 +38,7 @@ def run():
 
     feature_extractor_layer = hub.KerasLayer(feature_extractor_model,
                                              input_shape=(224, 224, 3),
-                                             trainable=False)
+                                             trainable=True)
 
     ### Optimized Neural Network
     model = keras.models.Sequential()
@@ -47,7 +47,7 @@ def run():
     model.add(feature_extractor_layer)
     model.add(keras.layers.Flatten())
     model.add(keras.layers.Dense(1024, activation='swish'))
-    model.add(keras.layers.Dense(128, activation='swish'))
+    model.add(keras.layers.Dense(256, activation='swish'))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     model.build(input_shape=(None, img_size, img_size, 3))
@@ -79,6 +79,7 @@ def run():
                         max_queue_size=30)
 
     model.evaluate(val_data)
+    model.save("ASLModel")
 
     ##Matching Predictions with Correct Image ID
     pred = dataprocessing.tta_prediction(model, batch_size, img_size)
