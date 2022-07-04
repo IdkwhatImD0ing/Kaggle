@@ -23,7 +23,7 @@ def run():
         label_dict[line.rstrip("\n")] = int(i)
 
     batch_size = 64
-    img_size = 200
+    img_size = 100
     num_classes = 27
     ### PARSING TRAIN/VALDIATION FILES
     train_data, val_data = dataprocessing.generate_augmented_images(
