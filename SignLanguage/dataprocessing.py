@@ -7,7 +7,10 @@ from tqdm import tqdm
 import numpy as np
 
 
-def generate_augmented_images(batch_size, img_size, normalize=True):
+def generate_augmented_images(batch_size,
+                              img_size,
+                              normalize=True,
+                              data_format="channels_last"):
     train_location = "dataset/train_images/"
     if (normalize == True):
         aug_gens = ImageDataGenerator(
@@ -25,6 +28,7 @@ def generate_augmented_images(batch_size, img_size, normalize=True):
             height_shift_range=0.1,
             horizontal_flip=False,
             vertical_flip=False,
+            data_format=data_format,
         )
     else:
         aug_gens = ImageDataGenerator(
@@ -41,6 +45,7 @@ def generate_augmented_images(batch_size, img_size, normalize=True):
             height_shift_range=0.1,
             horizontal_flip=False,
             vertical_flip=False,
+            data_format=data_format,
         )
 
     train_data = aug_gens.flow_from_directory(train_location,
@@ -95,7 +100,11 @@ def generate_test_labels():
     return img_id
 
 
-def tta_prediction(model, batch_size, img_size, normalize=True):
+def tta_prediction(model,
+                   batch_size,
+                   img_size,
+                   normalize=True,
+                   data_format='channels_last'):
     test_location = "dataset/test_images"
     if (normalize == True):
         aug_gens = ImageDataGenerator(
@@ -112,6 +121,7 @@ def tta_prediction(model, batch_size, img_size, normalize=True):
             height_shift_range=0.1,
             horizontal_flip=False,
             vertical_flip=False,
+            data_format=data_format,
         )
     else:
         aug_gens = ImageDataGenerator(
@@ -127,6 +137,7 @@ def tta_prediction(model, batch_size, img_size, normalize=True):
             height_shift_range=0.1,
             horizontal_flip=False,
             vertical_flip=False,
+            data_format=data_format,
         )
 
     tta_steps = 10

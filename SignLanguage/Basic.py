@@ -16,6 +16,7 @@ import tensorflow_hub as hub
 
 import dataprocessing
 
+keras.backend.set_image_data_format('channels_first')
 
 def run():
     label_dict = {}
@@ -27,7 +28,7 @@ def run():
     num_classes = 27
     ### PARSING TRAIN/VALDIATION FILES
     train_data, val_data = dataprocessing.generate_augmented_images(
-        batch_size, img_size)
+        batch_size, img_size, data_format="channels_first")
 
     ### PARSING TEST IMAGES
     test_labels = dataprocessing.generate_test_labels()
@@ -37,7 +38,7 @@ def run():
     model = keras.models.Sequential()
 
     # Model Layers
-    model.add(keras.layers.Input(shape=(img_size, img_size, 3)))
+    model.add(keras.layers.Input(shape=(3, img_size, img_size)))
     model.add(
         keras.layers.Conv2D(filters=64,
                             kernel_size=(3, 3),
@@ -76,7 +77,7 @@ def run():
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
-    model.build(input_shape=(None, img_size, img_size, 3))
+    model.build(input_shape=(None, 3, img_size, img_size))
     model.summary()
     model.compile(optimizer=tf.keras.optimizers.Adam(),
                   loss=tf.keras.losses.CategoricalCrossentropy(),
@@ -108,7 +109,10 @@ def run():
     model.save("ASLMOdel")
 
     ##Matching Predictions with Correct Image ID
-    pred = dataprocessing.tta_prediction(model, batch_size, img_size)
+    pred = dataprocessing.tta_prediction(model,
+                                         batch_size,
+                                         img_size,
+                                         data_format="channels_first")
     y_predict_max = np.argmax(pred, axis=1)
 
     print(np.asarray(test_int))
