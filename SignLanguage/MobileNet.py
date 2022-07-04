@@ -33,11 +33,12 @@ def run():
     test_labels = dataprocessing.generate_test_labels()
     test_int = [label_dict[x.replace(".jpg", "")] for x in test_labels]
 
-    feature_extractor_layer = keras.applications.MobileNet(input_shape=(224,
-                                                                        224,
-                                                                        3),
-                                                           include_top=False,
-                                                           pooling='avg')
+    mobilenet_v2 = "https://tfhub.dev/google/tf2-preview/mobilenet_v2/classification/4"
+    feature_extractor_model = mobilenet_v2
+
+    feature_extractor_layer = hub.KerasLayer(feature_extractor_model,
+                                             input_shape=(224, 224, 3),
+                                             trainable=True)
 
     ### Optimized Neural Network
     model = keras.models.Sequential()

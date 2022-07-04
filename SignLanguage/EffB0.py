@@ -16,41 +16,34 @@ import tensorflow_hub as hub
 
 import dataprocessing
 
-policy = mixed_precision.Policy('mixed_float16')
-mixed_precision.set_global_policy(policy)
-
 
 def run():
     label_dict = {}
     for i, line in enumerate(open("dataset/wnids.txt", "r")):
         label_dict[line.rstrip("\n")] = int(i)
 
-    batch_size = 64
+    batch_size = 128
     img_size = 200
 
     num_classes = 27
     ### PARSING TRAIN/VALDIATION FILES
-    train_data, val_data = dataprocessing.generate_augmented_images(
-        batch_size, img_size, normalize=False)
+    train_data, val_data = dataprocessing.generate_nonaugmented_images(
+        batch_size, img_size)
 
     ### PARSING TEST IMAGES
     test_labels = dataprocessing.generate_test_labels()
     test_int = [label_dict[x.replace(".jpg", "")] for x in test_labels]
 
-    effModel = keras.applications.EfficientNetB0(weights='imagenet',
-                                                 pooling='avg',
-                                                 include_top=False,
-                                                 input_shape=(img_size,
-                                                              img_size, 3))
-
     ### Optimized Neural Network
     model = keras.models.Sequential()
 
     # Model Layers
-    model.add(effModel)
-    model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(1024, activation='swish'))
-    model.add(keras.layers.Dense(256, activation='swish'))
+    model.add(
+        hub.KerasLayer(
+            "https://tfhub.dev/adityakane2001/regnety200mf_feature_extractor/1",
+            trainable=True))
+    model.add(keras.layers.GlobalAveragePooling2D())
+    #model.add(keras.layers.Dense(1024, activation='swish'))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     model.build(input_shape=(None, img_size, img_size, 3))
@@ -59,7 +52,7 @@ def run():
                   loss=tf.keras.losses.CategoricalCrossentropy(),
                   metrics=['accuracy'])
 
-    num_epochs = 100
+    num_epochs = 1
     lr_reduction = keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
                                                      patience=4,
                                                      verbose=1,
@@ -82,13 +75,10 @@ def run():
                         max_queue_size=30)
 
     model.evaluate(val_data)
-    model.save("ASLModel", include_optimizer=False)
+    model.save("ASLModel")
 
     ##Matching Predictions with Correct Image ID
-    pred = dataprocessing.tta_prediction(model,
-                                         batch_size,
-                                         img_size,
-                                         normalize=False)
+    pred = dataprocessing.tta_prediction(model, batch_size, img_size)
     y_predict_max = np.argmax(pred, axis=1)
 
     total = 0.0
@@ -111,6 +101,15 @@ def run():
     plt.legend(loc='lower right')
     plt.show()
     '''
+
+    # Convert the model
+    converter = tf.lite.TFLiteConverter.from_saved_model(
+        "ASLModel")  # path to the SavedModel directory
+    tflite_model = converter.convert()
+
+    # Save the model.
+    with open('model.tflite', 'wb') as f:
+        f.write(tflite_model)
 
 
 run()
