@@ -54,7 +54,7 @@ def run():
                             activation='relu'))
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPooling2D((2, 2)))
-    
+
     model.add(
         keras.layers.Conv2D(filters=128,
                             kernel_size=(3, 3),
@@ -69,7 +69,6 @@ def run():
                             activation='relu'))
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPooling2D((2, 2)))
-    
 
     model.add(keras.layers.Flatten())
     model.add(keras.layers.BatchNormalization())
@@ -83,7 +82,7 @@ def run():
                   loss=tf.keras.losses.CategoricalCrossentropy(),
                   metrics=['accuracy'])
 
-    num_epochs = 100
+    num_epochs = 1
     lr_reduction = keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
                                                      patience=4,
                                                      verbose=1,
