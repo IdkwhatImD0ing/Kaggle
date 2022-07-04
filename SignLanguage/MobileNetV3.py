@@ -43,6 +43,7 @@ def run():
     model = keras.models.Sequential()
 
     # Model Layers
+    model.add(keras.Input(shape = (img_size, img_size, 3)))
     model.add(feature_extractor_layer)
     model.add(keras.layers.Flatten())
     #model.add(keras.layers.Dense(1024, activation='swish'))
