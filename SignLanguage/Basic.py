@@ -83,7 +83,7 @@ def run():
                   loss=tf.keras.losses.CategoricalCrossentropy(),
                   metrics=['accuracy'])
 
-    num_epochs = 1
+    num_epochs = 100
     lr_reduction = keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
                                                      patience=4,
                                                      verbose=1,
