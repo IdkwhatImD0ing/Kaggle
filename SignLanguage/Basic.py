@@ -22,11 +22,11 @@ def run():
     for i, line in enumerate(open("Dataset/wnids.txt", "r")):
         label_dict[line.rstrip("\n")] = int(i)
 
-    batch_size = 300
-    img_size = 224
+    batch_size = 64
+    img_size = 200
     num_classes = 27
     ### PARSING TRAIN/VALDIATION FILES
-    train_data, val_data = dataprocessing.generate_nonaugmented_images(
+    train_data, val_data = dataprocessing.generate_augmented_images(
         batch_size, img_size)
 
     ### PARSING TEST IMAGES
@@ -39,36 +39,41 @@ def run():
     # Model Layers
     model.add(keras.layers.Input(shape=(img_size, img_size, 3)))
     model.add(
-        keras.layers.Conv2D(filters=32,
+        keras.layers.Conv2D(filters=64,
                             kernel_size=(3, 3),
                             strides=(1, 1),
                             padding="same",
                             activation='relu'))
+    model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPooling2D((2, 2)))
     model.add(
-        keras.layers.Conv2D(filters=32,
+        keras.layers.Conv2D(filters=128,
+                            kernel_size=(3, 3),
+                            strides=(1, 1),
+                            padding="same",
+                            activation='relu'))
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.MaxPooling2D((2, 2)))
+    
+    model.add(
+        keras.layers.Conv2D(filters=128,
                             kernel_size=(3, 3),
                             padding="same",
                             activation='relu'))
-    model.add(keras.layers.MaxPooling2D((2, 2)))
-    model.add(
-        keras.layers.Conv2D(filters=64,
-                            kernel_size=(3, 3),
-                            padding="same",
-                            activation='relu'))
+    model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPooling2D((2, 2)))
     model.add(
         keras.layers.Conv2D(filters=128,
                             kernel_size=(3, 3),
                             padding="same",
                             activation='relu'))
-    model.add(keras.layers.MaxPooling2D((2, 2)))
-    model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(512, activation='swish'))
-    model.add(keras.layers.Dropout(0.5))
     model.add(keras.layers.BatchNormalization())
-    model.add(keras.layers.Dense(512, activation='swish'))
-    model.add(keras.layers.Dropout(0.5))
+    model.add(keras.layers.MaxPooling2D((2, 2)))
+    
+
+    model.add(keras.layers.Flatten())
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Dense(256, activation='swish'))
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
@@ -78,7 +83,7 @@ def run():
                   loss=tf.keras.losses.CategoricalCrossentropy(),
                   metrics=['accuracy'])
 
-    num_epochs = 100
+    num_epochs = 1
     lr_reduction = keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
                                                      patience=4,
                                                      verbose=1,
@@ -101,6 +106,7 @@ def run():
                         max_queue_size=30)
 
     model.evaluate(val_data)
+    model.save("ASLMOdel")
 
     ##Matching Predictions with Correct Image ID
     pred = dataprocessing.tta_prediction(model, batch_size, img_size)
@@ -119,7 +125,7 @@ def run():
     accuracy = correct / total
 
     print("Accuracy: " + str(accuracy))
-    '''
+
     plt.plot(history.history['accuracy'], label='accuracy')
     plt.plot(history.history['val_accuracy'], label='val_accuracy')
     plt.xlabel('Epoch')
@@ -128,7 +134,6 @@ def run():
     plt.ylim([0.1, 1.0])
     plt.legend(loc='lower right')
     plt.show()
-    '''
 
 
 run()
