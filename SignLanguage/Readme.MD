@@ -23,6 +23,8 @@ Test Accuracy using TTA: 85.18%
 
 ### MobileNet:
 
+Not using due to model being to big to fit in Lens Studio
+
 Transfer learning without Image Augmentation
 
 Short Training Time
