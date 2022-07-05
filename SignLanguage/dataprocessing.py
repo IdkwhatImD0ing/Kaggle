@@ -21,12 +21,12 @@ def generate_augmented_images(batch_size,
             samplewise_std_normalization=False,
             zca_whitening=False,
             validation_split=0.1,
-            rotation_range=10,
+            rotation_range=30,
             shear_range=0.25,
-            zoom_range=0.1,
-            width_shift_range=0.1,
-            height_shift_range=0.1,
-            horizontal_flip=False,
+            zoom_range=0.3,
+            width_shift_range=0.3,
+            height_shift_range=0.3,
+            horizontal_flip=True,
             vertical_flip=False,
             data_format=data_format,
         )
@@ -38,12 +38,12 @@ def generate_augmented_images(batch_size,
             samplewise_std_normalization=False,
             zca_whitening=False,
             validation_split=0.1,
-            rotation_range=10,
+            rotation_range=30,
             shear_range=0.25,
-            zoom_range=0.1,
-            width_shift_range=0.1,
-            height_shift_range=0.1,
-            horizontal_flip=False,
+            zoom_range=0.3,
+            width_shift_range=0.3,
+            height_shift_range=0.3,
+            horizontal_flip=True,
             vertical_flip=False,
             data_format=data_format,
         )
@@ -155,3 +155,55 @@ def tta_prediction(model,
 
     final_pred = np.mean(predictions, axis=0)
     return final_pred
+
+
+def get_data(batch_size, img_size):
+    traindf = pd.read_csv("otherdataset/train/_annotations.csv", dtype=str)
+    valdf = pd.read_csv("otherdataset/valid/_annotations.csv", dtype=str)
+    testdf = pd.read_csv("otherdataset/test/_annotations.csv", dtype=str)
+
+    aug_gens = ImageDataGenerator(
+        featurewise_center=False,
+        samplewise_center=False,
+        featurewise_std_normalization=False,
+        samplewise_std_normalization=False,
+        zca_whitening=False,
+        rotation_range=10,
+        shear_range=0.25,
+        zoom_range=0.1,
+        width_shift_range=0.1,
+        height_shift_range=0.1,
+        horizontal_flip=False,
+        vertical_flip=False,
+        data_format='channels_first',
+        fill_mode='nearest',
+    )
+
+    train = aug_gens.flow_from_dataframe(dataframe=traindf,
+                                         directory="dataset/train/",
+                                         x_col='filename',
+                                         y_col='class',
+                                         batch_size=batch_size,
+                                         seed=1447,
+                                         class_mode='categorical',
+                                         target_size=(img_size, img_size))
+
+    valid = aug_gens.flow_from_dataframe(dataframe=valdf,
+                                         directory="dataset/valid/",
+                                         x_col='filename',
+                                         y_col='class',
+                                         batch_size=batch_size,
+                                         seed=1447,
+                                         class_mode='categorical',
+                                         target_size=(img_size, img_size))
+
+    test = aug_gens.flow_from_dataframe(dataframe=testdf,
+                                        directory="dataset/test/",
+                                        x_col='filename',
+                                        y_col='class',
+                                        batch_size=batch_size,
+                                        seed=1447,
+                                        class_mode='categorical',
+                                        target_size=(img_size, img_size))
+
+    return train, valid, test

@@ -24,9 +24,9 @@ def run():
     for i, line in enumerate(open("Dataset/wnids.txt", "r")):
         label_dict[line.rstrip("\n")] = int(i)
 
-    batch_size = 300
+    batch_size = 64
     img_size = 100
-    num_classes = 27
+    num_classes = 26
     ### PARSING TRAIN/VALDIATION FILES
     train_data, val_data = dataprocessing.generate_augmented_images(
         batch_size, img_size, data_format="channels_first", normalize=False)
