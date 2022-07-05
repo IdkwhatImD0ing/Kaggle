@@ -24,12 +24,12 @@ def run():
     for i, line in enumerate(open("Dataset/wnids.txt", "r")):
         label_dict[line.rstrip("\n")] = int(i)
 
-    batch_size = 64
+    batch_size = 300
     img_size = 100
     num_classes = 27
     ### PARSING TRAIN/VALDIATION FILES
     train_data, val_data = dataprocessing.generate_augmented_images(
-        batch_size, img_size, data_format="channels_first")
+        batch_size, img_size, data_format="channels_first", normalize=False)
 
     ### PARSING TEST IMAGES
     test_labels = dataprocessing.generate_test_labels()
@@ -40,8 +40,9 @@ def run():
 
     # Model Layers
     model.add(keras.layers.Input(shape=(3, img_size, img_size)))
+    model.add(keras.layers.Rescaling(1. / 255))
     model.add(
-        keras.layers.Conv2D(filters=64,
+        keras.layers.Conv2D(filters=32,
                             kernel_size=(3, 3),
                             strides=(1, 1),
                             padding="same",
@@ -49,7 +50,7 @@ def run():
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPooling2D((2, 2)))
     model.add(
-        keras.layers.Conv2D(filters=128,
+        keras.layers.Conv2D(filters=64,
                             kernel_size=(3, 3),
                             strides=(1, 1),
                             padding="same",
@@ -73,10 +74,11 @@ def run():
     model.add(keras.layers.MaxPooling2D((2, 2)))
 
     model.add(keras.layers.Flatten())
-    model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.Dense(512, activation='swish'))
+    model.add(keras.layers.Dropout(0.2))
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.Dense(256, activation='swish'))
+    model.add(keras.layers.Dropout(0.2))
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
@@ -115,7 +117,8 @@ def run():
     pred = dataprocessing.tta_prediction(model,
                                          batch_size,
                                          img_size,
-                                         data_format="channels_first")
+                                         data_format="channels_first",
+                                         normalize=False)
     y_predict_max = np.argmax(pred, axis=1)
 
     print(np.asarray(test_int))

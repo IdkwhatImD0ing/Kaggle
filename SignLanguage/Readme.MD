@@ -13,13 +13,13 @@ Both Validation Accuracy and Test Accuracy is included, but due to small size of
 
 ### Basic:
 
-Handmade model without image augmentation
+Handmade model with image augmentation
 
 Short Training Time
 
-Validation Accuracy: 92.04%
+Validation Accuracy: 95.04%
 
-Test Accuracy using TTA: 85.18%
+Test Accuracy using TTA: 100%
 
 ### MobileNet:
 
