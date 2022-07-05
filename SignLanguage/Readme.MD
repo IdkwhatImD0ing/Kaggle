@@ -33,7 +33,21 @@ Validation Accuracy: 91.41%
 
 Test Accuracy using TTA: 100%
 
+### MobileNetV3:
+
+Not using due to model unable to import into Lens Studio
+
+Transfer learning without Image Augmentation
+
+Short Training Time
+
+Validation Accuracy: 99.41%
+
+Test Accuracy using TTA: 100%
+
 ### EfficientNetB0:
+
+Not using due to unable to save model
 
 Transfer learning model using Image Augmentation
 

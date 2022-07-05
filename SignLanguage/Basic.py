@@ -18,6 +18,7 @@ import dataprocessing
 
 keras.backend.set_image_data_format('channels_first')
 
+
 def run():
     label_dict = {}
     for i, line in enumerate(open("Dataset/wnids.txt", "r")):
@@ -73,6 +74,8 @@ def run():
 
     model.add(keras.layers.Flatten())
     model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Dense(512, activation='swish'))
+    model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.Dense(256, activation='swish'))
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
@@ -83,7 +86,7 @@ def run():
                   loss=tf.keras.losses.CategoricalCrossentropy(),
                   metrics=['accuracy'])
 
-    num_epochs = 1
+    num_epochs = 100
     lr_reduction = keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
                                                      patience=4,
                                                      verbose=1,
