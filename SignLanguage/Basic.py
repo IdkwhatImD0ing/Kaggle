@@ -66,7 +66,7 @@ def run():
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPooling2D((2, 2)))
     model.add(
-        keras.layers.Conv2D(filters=128,
+        keras.layers.Conv2D(filters=256,
                             kernel_size=(3, 3),
                             padding="same",
                             activation='relu'))

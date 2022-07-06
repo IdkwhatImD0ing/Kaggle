@@ -16,6 +16,8 @@ import tensorflow_hub as hub
 
 import dataprocessing
 
+keras.backend.set_image_data_format('channels_first')
+
 
 def run():
     label_dict = {}
@@ -24,39 +26,36 @@ def run():
 
     batch_size = 64
     img_size = 224
-    num_classes = 27
+    num_classes = 26
     ### PARSING TRAIN/VALDIATION FILES
-    train_data, val_data = dataprocessing.generate_nonaugmented_images(
-        batch_size, img_size)
+    train_data, val_data = dataprocessing.generate_augmented_images(
+        batch_size, img_size, data_format="channels_first", normalize=False)
 
     ### PARSING TEST IMAGES
     test_labels = dataprocessing.generate_test_labels()
     test_int = [label_dict[x.replace(".jpg", "")] for x in test_labels]
 
-    mobilenet_v2 = "https://tfhub.dev/google/tf2-preview/mobilenet_v2/classification/4"
-    feature_extractor_model = mobilenet_v2
-
-    feature_extractor_layer = hub.KerasLayer(feature_extractor_model,
-                                             input_shape=(224, 224, 3),
-                                             trainable=True)
+    feature_extractor_layer = keras.applications.MobileNetV2(
+        input_shape=(3, img_size, img_size), pooling='avg', include_top=False)
 
     ### Optimized Neural Network
     model = keras.models.Sequential()
 
     # Model Layers
+    model.add(keras.layers.Rescaling(1. / 127.5, offset=-1))
     model.add(feature_extractor_layer)
     model.add(keras.layers.Flatten())
-    #model.add(keras.layers.Dense(1024, activation='swish'))
+    model.add(keras.layers.Dense(1024, activation='swish'))
     model.add(keras.layers.Dense(256, activation='swish'))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
-    model.build(input_shape=(None, img_size, img_size, 3))
+    model.build(input_shape=(None, 3, img_size, img_size))
     model.summary()
     model.compile(optimizer=tf.keras.optimizers.Adam(),
                   loss=tf.keras.losses.CategoricalCrossentropy(),
                   metrics=['accuracy'])
 
-    num_epochs = 100
+    num_epochs = 1
     lr_reduction = keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
                                                      patience=4,
                                                      verbose=1,
@@ -82,7 +81,11 @@ def run():
     model.save("ASLModel")
 
     ##Matching Predictions with Correct Image ID
-    pred = dataprocessing.tta_prediction(model, batch_size, img_size)
+    pred = dataprocessing.tta_prediction(model,
+                                         batch_size,
+                                         img_size,
+                                         data_format="channels_first",
+                                         normalize=False)
     y_predict_max = np.argmax(pred, axis=1)
 
     print(np.asarray(test_int))
