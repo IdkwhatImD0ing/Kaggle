@@ -5,6 +5,7 @@ from tensorflow.keras.preprocessing import image_dataset_from_directory
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tqdm import tqdm
 import numpy as np
+import pandas as pd
 
 
 def generate_augmented_images(batch_size,
@@ -180,7 +181,7 @@ def get_data(batch_size, img_size):
     )
 
     train = aug_gens.flow_from_dataframe(dataframe=traindf,
-                                         directory="dataset/train/",
+                                         directory="otherdataset/train/",
                                          x_col='filename',
                                          y_col='class',
                                          batch_size=batch_size,
@@ -189,7 +190,7 @@ def get_data(batch_size, img_size):
                                          target_size=(img_size, img_size))
 
     valid = aug_gens.flow_from_dataframe(dataframe=valdf,
-                                         directory="dataset/valid/",
+                                         directory="otherdataset/valid/",
                                          x_col='filename',
                                          y_col='class',
                                          batch_size=batch_size,
@@ -198,7 +199,7 @@ def get_data(batch_size, img_size):
                                          target_size=(img_size, img_size))
 
     test = aug_gens.flow_from_dataframe(dataframe=testdf,
-                                        directory="dataset/test/",
+                                        directory="otherdataset/test/",
                                         x_col='filename',
                                         y_col='class',
                                         batch_size=batch_size,
