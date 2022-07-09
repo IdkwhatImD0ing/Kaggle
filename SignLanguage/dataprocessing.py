@@ -11,8 +11,9 @@ import pandas as pd
 def generate_augmented_images(batch_size,
                               img_size,
                               normalize=True,
-                              data_format="channels_last"):
-    train_location = "dataset/train_images/"
+                              data_format="channels_last",
+                              train_location="dataset/train_images/"):
+
     if (normalize == True):
         aug_gens = ImageDataGenerator(
             rescale=1.0 / 255,
@@ -30,6 +31,7 @@ def generate_augmented_images(batch_size,
             horizontal_flip=False,
             vertical_flip=False,
             data_format=data_format,
+            fill_mode="constant",
         )
     else:
         aug_gens = ImageDataGenerator(
@@ -47,6 +49,7 @@ def generate_augmented_images(batch_size,
             horizontal_flip=False,
             vertical_flip=False,
             data_format=data_format,
+            fill_mode="constant",
         )
 
     train_data = aug_gens.flow_from_directory(train_location,
@@ -66,8 +69,12 @@ def generate_augmented_images(batch_size,
     return train_data, val_data
 
 
-def generate_nonaugmented_images(batch_size, img_size, normalize=True):
-    train_location = "dataset/train_images/"
+def generate_nonaugmented_images(batch_size,
+                                 img_size,
+                                 normalize=True,
+                                 train_location="dataset/train_images/",
+                                 valsplit=True):
+
     if (normalize == True):
         aug_gens = ImageDataGenerator(
             rescale=1.0 / 255,
@@ -75,26 +82,36 @@ def generate_nonaugmented_images(batch_size, img_size, normalize=True):
         )
     else:
         aug_gens = ImageDataGenerator(validation_split=0.1)
+    if (valsplit):
+        train_data = aug_gens.flow_from_directory(train_location,
+                                                  subset="training",
+                                                  seed=1447,
+                                                  target_size=(img_size,
+                                                               img_size),
+                                                  batch_size=batch_size,
+                                                  class_mode="categorical")
 
-    train_data = aug_gens.flow_from_directory(train_location,
-                                              subset="training",
-                                              seed=1447,
-                                              target_size=(img_size, img_size),
-                                              batch_size=batch_size,
-                                              class_mode="categorical")
-
-    val_data = aug_gens.flow_from_directory(train_location,
-                                            subset="validation",
-                                            seed=1447,
-                                            target_size=(img_size, img_size),
-                                            batch_size=batch_size,
-                                            class_mode="categorical")
-
+        val_data = aug_gens.flow_from_directory(train_location,
+                                                subset="validation",
+                                                seed=1447,
+                                                target_size=(img_size,
+                                                             img_size),
+                                                batch_size=batch_size,
+                                                class_mode="categorical")
+    else:
+        train_data = aug_gens.flow_from_directory(train_location,
+                                                  subset=None,
+                                                  seed=1447,
+                                                  target_size=(img_size,
+                                                               img_size),
+                                                  batch_size=batch_size,
+                                                  class_mode="categorical")
+        val_data = None
     return train_data, val_data
 
 
-def generate_test_labels():
-    test_location = "dataset/test_images"
+def generate_test_labels(test_location="dataset/test_images"):
+
     img_id = []
     for fileName in os.listdir(test_location):
         img_id.append(fileName)
@@ -105,8 +122,9 @@ def tta_prediction(model,
                    batch_size,
                    img_size,
                    normalize=True,
-                   data_format='channels_last'):
-    test_location = "dataset/test_images"
+                   data_format='channels_last',
+                   test_location="dataset/test_images"):
+
     if (normalize == True):
         aug_gens = ImageDataGenerator(
             rescale=1.0 / 255,
@@ -115,6 +133,7 @@ def tta_prediction(model,
             featurewise_std_normalization=False,
             samplewise_std_normalization=False,
             zca_whitening=False,
+            validation_split=0.1,
             rotation_range=10,
             shear_range=0.25,
             zoom_range=0.1,
@@ -123,6 +142,7 @@ def tta_prediction(model,
             horizontal_flip=False,
             vertical_flip=False,
             data_format=data_format,
+            fill_mode="constant",
         )
     else:
         aug_gens = ImageDataGenerator(
@@ -131,6 +151,7 @@ def tta_prediction(model,
             featurewise_std_normalization=False,
             samplewise_std_normalization=False,
             zca_whitening=False,
+            validation_split=0.1,
             rotation_range=10,
             shear_range=0.25,
             zoom_range=0.1,
@@ -139,6 +160,7 @@ def tta_prediction(model,
             horizontal_flip=False,
             vertical_flip=False,
             data_format=data_format,
+            fill_mode="constant",
         )
 
     tta_steps = 10
@@ -158,6 +180,7 @@ def tta_prediction(model,
     return final_pred
 
 
+# This does not work
 def get_data(batch_size, img_size):
     traindf = pd.read_csv("otherdataset/train/_annotations.csv", dtype=str)
     valdf = pd.read_csv("otherdataset/valid/_annotations.csv", dtype=str)

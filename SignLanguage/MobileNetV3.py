@@ -5,7 +5,6 @@ from tensorflow.keras import regularizers
 from tensorflow.keras.optimizers import SGD
 from sklearn.model_selection import train_test_split
 from tensorflow import keras
-from keras.layers.advanced_activations import PReLU
 from tqdm import tqdm
 import numpy as np
 from PIL import Image
@@ -114,6 +113,15 @@ def run():
     plt.legend(loc='lower right')
     plt.show()
     '''
+
+    # Convert the model
+    converter = tf.lite.TFLiteConverter.from_saved_model(
+        "ASLModel")  # path to the SavedModel directory
+    tflite_model = converter.convert()
+
+    # Save the model.
+    with open('model.tflite', 'wb') as f:
+        f.write(tflite_model)
 
 
 run()

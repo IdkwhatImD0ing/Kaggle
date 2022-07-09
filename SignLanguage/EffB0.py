@@ -5,7 +5,6 @@ from tensorflow.keras import regularizers
 from tensorflow.keras.optimizers import SGD
 from sklearn.model_selection import train_test_split
 from tensorflow import keras
-from keras.layers.advanced_activations import PReLU
 from tqdm import tqdm
 import numpy as np
 from PIL import Image
@@ -13,7 +12,6 @@ from tensorflow.keras import mixed_precision
 import os
 import csv
 import tensorflow_hub as hub
-
 import dataprocessing
 
 
@@ -22,13 +20,13 @@ def run():
     for i, line in enumerate(open("dataset/wnids.txt", "r")):
         label_dict[line.rstrip("\n")] = int(i)
 
-    batch_size = 128
-    img_size = 200
+    batch_size = 64
+    img_size = 100
 
-    num_classes = 27
+    num_classes = 26
     ### PARSING TRAIN/VALDIATION FILES
-    train_data, val_data = dataprocessing.generate_nonaugmented_images(
-        batch_size, img_size)
+    train_data, val_data = dataprocessing.generate_augmented_images(
+        batch_size, img_size, normalize=False)
 
     ### PARSING TEST IMAGES
     test_labels = dataprocessing.generate_test_labels()
@@ -37,12 +35,16 @@ def run():
     ### Optimized Neural Network
     model = keras.models.Sequential()
 
+    layer = keras.applications.EfficientNetB0(include_top=False,
+                                              weights="imagenet",
+                                              pooling='avg',
+                                              input_shape=(img_size, img_size,
+                                                           3))
+
     # Model Layers
-    model.add(
-        hub.KerasLayer(
-            "https://tfhub.dev/adityakane2001/regnety200mf_feature_extractor/1",
-            trainable=True))
-    model.add(keras.layers.GlobalAveragePooling2D())
+    model.add(layer)
+    model.add(keras.layers.Flatten())
+    model.add(keras.layers.Dense(256, activation='softmax'))
     #model.add(keras.layers.Dense(1024, activation='swish'))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
@@ -74,11 +76,13 @@ def run():
                         callbacks=[early_stop, lr_reduction],
                         max_queue_size=30)
 
-    model.evaluate(val_data)
     model.save("ASLModel")
 
     ##Matching Predictions with Correct Image ID
-    pred = dataprocessing.tta_prediction(model, batch_size, img_size)
+    pred = dataprocessing.tta_prediction(model,
+                                         batch_size,
+                                         img_size,
+                                         normalize=False)
     y_predict_max = np.argmax(pred, axis=1)
 
     total = 0.0

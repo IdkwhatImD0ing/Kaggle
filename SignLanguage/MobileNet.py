@@ -5,7 +5,6 @@ from tensorflow.keras import regularizers
 from tensorflow.keras.optimizers import SGD
 from sklearn.model_selection import train_test_split
 from tensorflow import keras
-from keras.layers.advanced_activations import PReLU
 from tqdm import tqdm
 import numpy as np
 from PIL import Image
@@ -36,7 +35,8 @@ def run():
     test_int = [label_dict[x.replace(".jpg", "")] for x in test_labels]
 
     feature_extractor_layer = keras.applications.MobileNetV2(
-        input_shape=(3, img_size, img_size), pooling='avg', include_top=False)
+        input_shape=(3, img_size, img_size), pooling='max', include_top=False)
+    feature_extractor_layer.trainable = False
 
     ### Optimized Neural Network
     model = keras.models.Sequential()
@@ -45,11 +45,11 @@ def run():
     model.add(keras.layers.Rescaling(1. / 127.5, offset=-1))
     model.add(feature_extractor_layer)
     model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(1024, activation='swish'))
+    #model.add(keras.layers.Dense(1024, activation='swish'))
     model.add(keras.layers.Dense(256, activation='swish'))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
-    model.build(input_shape=(None, 3, img_size, img_size))
+    model.build(input_shape=(1, 3, img_size, img_size))
     model.summary()
     model.compile(optimizer=tf.keras.optimizers.Adam(),
                   loss=tf.keras.losses.CategoricalCrossentropy(),
@@ -77,7 +77,7 @@ def run():
                         callbacks=[early_stop, lr_reduction],
                         max_queue_size=30)
 
-    model.evaluate(val_data)
+    #model.evaluate(val_data)
     model.save("ASLModel")
 
     ##Matching Predictions with Correct Image ID
@@ -111,6 +111,14 @@ def run():
     plt.legend(loc='lower right')
     plt.show()
     '''
+    # Convert the model
+    converter = tf.lite.TFLiteConverter.from_saved_model(
+        "ASLModel")  # path to the SavedModel directory
+    tflite_model = converter.convert()
+
+    # Save the model.
+    with open('model.tflite', 'wb') as f:
+        f.write(tflite_model)
 
 
 run()
