@@ -21,7 +21,7 @@ def run():
         label_dict[line.rstrip("\n")] = int(i)
 
     batch_size = 64
-    img_size = 100
+    img_size = 224
 
     num_classes = 26
     ### PARSING TRAIN/VALDIATION FILES
@@ -32,21 +32,20 @@ def run():
         train_location="dataset/train_images")
 
     ### PARSING TEST IMAGES
-    test_labels = dataprocessing.generate_test_labels(
-        test_location="dataset/test")
+    test_labels = dataprocessing.generate_test_labels()
     test_int = [label_dict[x[0]] for x in test_labels]
 
     ### Optimized Neural Network
     model = keras.models.Sequential()
 
     layer = tf.keras.applications.NASNetMobile(include_top=False,
-                                               weights=None,
+                                               weights='imagenet',
                                                pooling='avg',
                                                input_shape=(img_size, img_size,
                                                             3))
 
     # Model Layers
-    model.add(keras.layers.Rescaling(1. / 127.5, offset=-1))
+    model.add(keras.layers.Rescaling((1. / 127.5) - 1))
     model.add(layer)
     model.add(keras.layers.Flatten())
     model.add(keras.layers.Dense(256, activation='swish'))
@@ -58,7 +57,7 @@ def run():
                   loss=tf.keras.losses.CategoricalCrossentropy(),
                   metrics=['accuracy'])
 
-    num_epochs = 1
+    num_epochs = 100
     lr_reduction = keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
                                                      patience=4,
                                                      verbose=1,
@@ -77,10 +76,11 @@ def run():
                         validation_data=val_data,
                         batch_size=batch_size,
                         verbose=1,
+                        callbacks=[early_stop, lr_reduction],
                         max_queue_size=30)
 
     model.save("ASLModel")
-    more_data = dataprocessing.generate_nonaugmented_images(
+    more_data, _ = dataprocessing.generate_nonaugmented_images(
         batch_size,
         img_size,
         normalize=False,

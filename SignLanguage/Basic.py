@@ -5,7 +5,6 @@ from tensorflow.keras import regularizers
 from tensorflow.keras.optimizers import SGD
 from sklearn.model_selection import train_test_split
 from tensorflow import keras
-from keras.layers.advanced_activations import PReLU
 from tqdm import tqdm
 import numpy as np
 from PIL import Image
@@ -21,7 +20,7 @@ keras.backend.set_image_data_format('channels_first')
 
 def run():
     label_dict = {}
-    for i, line in enumerate(open("Dataset/wnids.txt", "r")):
+    for i, line in enumerate(open("wnids.txt", "r")):
         label_dict[line.rstrip("\n")] = int(i)
 
     batch_size = 64
@@ -32,8 +31,8 @@ def run():
         batch_size, img_size, data_format="channels_first", normalize=False)
 
     ### PARSING TEST IMAGES
-    test_labels = dataprocessing.generate_test_labels()
-    test_int = [label_dict[x.replace(".jpg", "")] for x in test_labels]
+    test_labels = dataprocessing.generate_test_labels(test_location="dataset/test")
+    test_int = [label_dict[x[0]] for x in test_labels]
 
     ### Optimized Neural Network
     model = keras.models.Sequential()

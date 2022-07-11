@@ -14,10 +14,13 @@ import csv
 import tensorflow_hub as hub
 import dataprocessing
 
+policy = mixed_precision.Policy('mixed_float16')
+mixed_precision.set_global_policy(policy)
+
 
 def run():
     label_dict = {}
-    for i, line in enumerate(open("dataset/wnids.txt", "r")):
+    for i, line in enumerate(open("wnids.txt", "r")):
         label_dict[line.rstrip("\n")] = int(i)
 
     batch_size = 64
@@ -30,7 +33,7 @@ def run():
 
     ### PARSING TEST IMAGES
     test_labels = dataprocessing.generate_test_labels()
-    test_int = [label_dict[x.replace(".jpg", "")] for x in test_labels]
+    test_int = [label_dict[x[0]] for x in test_labels]
 
     ### Optimized Neural Network
     model = keras.models.Sequential()

@@ -24,13 +24,14 @@ def generate_augmented_images(batch_size,
             zca_whitening=False,
             validation_split=0.1,
             rotation_range=10,
-            shear_range=0.25,
-            zoom_range=0.1,
-            width_shift_range=0.1,
-            height_shift_range=0.1,
+            shear_range=0.15,
+            zoom_range=0.3,
+            width_shift_range=0.3,
+            height_shift_range=0.3,
             horizontal_flip=False,
             vertical_flip=False,
             data_format=data_format,
+            brightness_range=(0.5, 1.5),
             fill_mode="constant",
         )
     else:
@@ -42,13 +43,14 @@ def generate_augmented_images(batch_size,
             zca_whitening=False,
             validation_split=0.1,
             rotation_range=10,
-            shear_range=0.25,
-            zoom_range=0.1,
-            width_shift_range=0.1,
-            height_shift_range=0.1,
+            shear_range=0.15,
+            zoom_range=0.3,
+            width_shift_range=0.3,
+            height_shift_range=0.3,
             horizontal_flip=False,
             vertical_flip=False,
             data_format=data_format,
+            brightness_range=(0.5, 1.5),
             fill_mode="constant",
         )
 
@@ -73,7 +75,8 @@ def generate_nonaugmented_images(batch_size,
                                  img_size,
                                  normalize=True,
                                  train_location="dataset/train_images/",
-                                 valsplit=True):
+                                 valsplit=True,
+                                 class_mode="categorical"):
 
     if (normalize == True):
         aug_gens = ImageDataGenerator(
@@ -89,7 +92,7 @@ def generate_nonaugmented_images(batch_size,
                                                   target_size=(img_size,
                                                                img_size),
                                                   batch_size=batch_size,
-                                                  class_mode="categorical")
+                                                  class_mode=class_mode)
 
         val_data = aug_gens.flow_from_directory(train_location,
                                                 subset="validation",
@@ -97,7 +100,7 @@ def generate_nonaugmented_images(batch_size,
                                                 target_size=(img_size,
                                                              img_size),
                                                 batch_size=batch_size,
-                                                class_mode="categorical")
+                                                class_mode=class_mode)
     else:
         train_data = aug_gens.flow_from_directory(train_location,
                                                   subset=None,
@@ -105,7 +108,7 @@ def generate_nonaugmented_images(batch_size,
                                                   target_size=(img_size,
                                                                img_size),
                                                   batch_size=batch_size,
-                                                  class_mode="categorical")
+                                                  class_mode=class_mode)
         val_data = None
     return train_data, val_data
 
