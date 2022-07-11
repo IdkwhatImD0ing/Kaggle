@@ -48,7 +48,7 @@ def run():
     model.add(feature_extractor_layer)
     model.add(keras.layers.Flatten())
     model.add(keras.layers.Dense(1024, activation='swish'))
-    model.add(keras.layers.Dense(128, activation='swish'))
+    model.add(keras.layers.Dense(256, activation='swish'))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
     model.build(input_shape=(None, img_size, img_size, 3))
@@ -87,7 +87,7 @@ def run():
                                          batch_size,
                                          img_size,
                                          data_format="channels_last",
-                                         normalize=False)
+                                         normalize=True)
     y_predict_max = np.argmax(pred, axis=1)
 
     print(np.asarray(test_int))
