@@ -12,7 +12,8 @@ def generate_augmented_images(batch_size,
                               img_size,
                               normalize=True,
                               data_format="channels_last",
-                              train_location="dataset/train_images/"):
+                              train_location="dataset/train_images/",
+                              valsplit=True):
 
     if (normalize == True):
         aug_gens = ImageDataGenerator(
@@ -25,13 +26,13 @@ def generate_augmented_images(batch_size,
             validation_split=0.1,
             rotation_range=10,
             shear_range=0.15,
-            zoom_range=0.3,
-            width_shift_range=0.3,
-            height_shift_range=0.3,
+            zoom_range=0.1,
+            width_shift_range=0.1,
+            height_shift_range=0.1,
             horizontal_flip=False,
             vertical_flip=False,
             data_format=data_format,
-            brightness_range=(0.5, 1.5),
+            brightness_range=(0.9, 1.1),
             fill_mode="constant",
         )
     else:
@@ -44,29 +45,42 @@ def generate_augmented_images(batch_size,
             validation_split=0.1,
             rotation_range=10,
             shear_range=0.15,
-            zoom_range=0.3,
-            width_shift_range=0.3,
-            height_shift_range=0.3,
+            zoom_range=0.1,
+            width_shift_range=0.1,
+            height_shift_range=0.1,
             horizontal_flip=False,
             vertical_flip=False,
             data_format=data_format,
-            brightness_range=(0.5, 1.5),
+            brightness_range=(0.9, 1.1),
             fill_mode="constant",
         )
+    if (valsplit):
 
-    train_data = aug_gens.flow_from_directory(train_location,
-                                              subset="training",
-                                              seed=1447,
-                                              target_size=(img_size, img_size),
-                                              batch_size=batch_size,
-                                              class_mode="categorical")
+        train_data = aug_gens.flow_from_directory(train_location,
+                                                  subset="training",
+                                                  seed=1447,
+                                                  target_size=(img_size,
+                                                               img_size),
+                                                  batch_size=batch_size,
+                                                  class_mode="categorical")
 
-    val_data = aug_gens.flow_from_directory(train_location,
-                                            subset="validation",
-                                            seed=1447,
-                                            target_size=(img_size, img_size),
-                                            batch_size=batch_size,
-                                            class_mode="categorical")
+        val_data = aug_gens.flow_from_directory(train_location,
+                                                subset="validation",
+                                                seed=1447,
+                                                target_size=(img_size,
+                                                             img_size),
+                                                batch_size=batch_size,
+                                                class_mode="categorical")
+    else:
+        train_data = aug_gens.flow_from_directory(train_location,
+                                                  subset=None,
+                                                  seed=1447,
+                                                  target_size=(img_size,
+                                                               img_size),
+                                                  batch_size=batch_size,
+                                                  class_mode="categorical")
+
+        val_data = None
 
     return train_data, val_data
 

@@ -87,7 +87,7 @@ def run():
                                          batch_size,
                                          img_size,
                                          data_format="channels_last",
-                                         normalize=True)
+                                         normalize=False)
     y_predict_max = np.argmax(pred, axis=1)
 
     print(np.asarray(test_int))
