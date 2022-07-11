@@ -52,7 +52,7 @@ def run():
     model.add(feature_extractor_layer)
     model.add(keras.layers.Flatten())
     model.add(keras.layers.Dense(1024, activation='swish'))
-    model.add(keras.layers.Dense(516, activation='swish'))
+    #model.add(keras.layers.Dense(516, activation='swish'))
     model.add(keras.layers.Dense(256, activation='swish'))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 

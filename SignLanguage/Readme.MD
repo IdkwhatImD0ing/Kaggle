@@ -9,8 +9,12 @@ Dataset from: https://public.roboflow.com/object-detection/american-sign-languag
 ## Model
 
 Based off MobileNetV2 which was trained on imagenet.
-Validation Accuracy:
-Test Accuracy:
+Fine Tuned on above Dataset
+
+## Accuracy
+
+Validation Accuracy: 94.12%
+Test Accuracy: 87.5%
 
 ## Image Augmentation
 
