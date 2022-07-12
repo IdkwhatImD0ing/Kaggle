@@ -52,7 +52,6 @@ def run():
     model.add(feature_extractor_layer)
     model.add(keras.layers.Flatten())
     model.add(keras.layers.Dense(1024, activation='swish'))
-    #model.add(keras.layers.Dense(516, activation='swish'))
     model.add(keras.layers.Dense(256, activation='swish'))
     model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
@@ -84,6 +83,7 @@ def run():
                         callbacks=[early_stop, lr_reduction],
                         max_queue_size=30)
 
+    print("Final Validation Accuracy:")
     model.evaluate(val_data)
     model.save("ASLModel")
 
@@ -109,7 +109,7 @@ def run():
 
     accuracy = correct / total
 
-    print("Accuracy: " + str(accuracy))
+    print("Test Accuracy: " + str(accuracy))
     '''
     plt.plot(history.history['accuracy'], label='accuracy')
     plt.plot(history.history['val_accuracy'], label='val_accuracy')
