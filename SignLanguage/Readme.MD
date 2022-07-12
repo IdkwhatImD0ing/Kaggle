@@ -13,13 +13,13 @@ Fine Tuned on above Dataset
 
 ## Accuracy
 
-Validation Accuracy: 94.12%
-Test Accuracy: 87.5%
+ - Validation Accuracy: 94.12%
+ - Test Accuracy: 87.5%
 
 ## Image Augmentation
 
-Rotation
-Sheer
-Zoom
-Width/Height Shift
-Brightness
+ - Rotation
+ - Sheer
+ - Zoom
+ - Width/Height Shift
+ - Brightness
