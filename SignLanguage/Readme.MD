@@ -14,7 +14,7 @@ Fine Tuned on above Dataset
 ## Accuracy
 
  - Validation Accuracy: 94.12%
- - Test Accuracy: 87.5%
+ - Test Accuracy: 91.6%
 
 ## Image Augmentation
 
