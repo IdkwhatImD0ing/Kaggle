@@ -3,6 +3,12 @@
 ## Competition Link
 https://www.kaggle.com/competitions/paddy-disease-classification/data
 
+## Final Model Used:
+
+EfficientNetB4
+Finedtuned EfficientNetB4 model with image augmentation and time test augmentation resulted in 98.04% in test. 
+
+
 ## Without Data Augmentation
 
 ### Basic Model
